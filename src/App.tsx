@@ -1,5 +1,4 @@
 import React from 'react';
-import { Button } from 'antd';
 import './App.scss';
 
 function App() {
@@ -7,11 +6,14 @@ function App() {
 
   return (
     <div className="App">
-      <Button type="primary" onClick={() => heyClicked()}>
+      <h1 className="uk-text-lead">Hey</h1>
+      <button
+        className="uk-button uk-button-default"
+        onClick={() => heyClicked()}
+      >
         Hey
-      </Button>
+      </button>
     </div>
   );
 }
-
 export default App;
