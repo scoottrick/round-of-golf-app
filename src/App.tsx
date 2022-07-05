@@ -1,18 +1,18 @@
 import React from 'react';
+import { Routes, Route } from 'react-router-dom';
 import './App.scss';
+import HomePage from './pages/home-page/HomePage';
+import RoundScoresPage from './pages/round-scores-page/RoundScoresPage';
+import RoundSetupPage from './pages/round-setup-page/RoundSetupPage';
 
 function App() {
-  const heyClicked = () => console.log('hey');
-
   return (
     <div className="App">
-      <h1 className="uk-text-lead">Hey</h1>
-      <button
-        className="uk-button uk-button-default"
-        onClick={() => heyClicked()}
-      >
-        Hey
-      </button>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="round-setup" element={<RoundSetupPage />} />
+        <Route path="round/:roundId" element={<RoundScoresPage />} />
+      </Routes>
     </div>
   );
 }
