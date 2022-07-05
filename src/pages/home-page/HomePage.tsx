@@ -4,7 +4,16 @@ import {
   PageContent,
   PageLayout,
 } from '../../components/page-layout/PageLayout';
+import {
+  createGolfCourse,
+  createGolfers,
+  createGolfRound,
+} from '../../model/golf';
 import './HomePage.scss';
+
+const mockGolfers = createGolfers(['Tom', 'Dick', 'Harry']);
+const mockCourse = createGolfCourse('Lunar Lake', 9);
+const mockRound = createGolfRound(mockGolfers, mockCourse);
 
 const HomePage = () => {
   return (
