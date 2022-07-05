@@ -1,9 +1,10 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import './App.scss';
 import HomePage from './pages/home-page/HomePage';
-import RoundScoresPage from './pages/round-scores-page/RoundScoresPage';
 import RoundSetupPage from './pages/round-setup-page/RoundSetupPage';
+import ScorecardPage from './pages/scorecard-page/ScorecardPage';
+
+import './App.scss';
 
 function App() {
   return (
@@ -11,7 +12,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="round-setup" element={<RoundSetupPage />} />
-        <Route path="round/:roundId" element={<RoundScoresPage />} />
+        <Route path="scorecard/:roundId" element={<ScorecardPage />} />
       </Routes>
     </div>
   );
