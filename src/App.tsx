@@ -1,9 +1,17 @@
 import React from 'react';
-import logo from './logo.svg';
+import { Button } from 'antd';
 import './App.scss';
 
 function App() {
-  return <div className="App">{'Blank app :('}</div>;
+  const heyClicked = () => console.log('hey');
+
+  return (
+    <div className="App">
+      <Button type="primary" onClick={() => heyClicked()}>
+        Hey
+      </Button>
+    </div>
+  );
 }
 
 export default App;
