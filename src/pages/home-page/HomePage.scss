@@ -1,7 +1,20 @@
+$spacing-vertical: 2rem;
+$spacing-horizontal: 1rem;
+
 .bottom-sheet {
-  padding: 2rem 1rem;
+  padding: $spacing-vertical $spacing-horizontal;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
+}
+
+.content-spacing {
+  padding-top: $spacing-vertical;
+  padding-left: $spacing-horizontal;
+  padding-right: $spacing-horizontal;
+}
+
+.round-overview {
+  padding: 1rem;
 }

@@ -10,6 +10,7 @@ import {
   createGolfRound,
 } from '../../model/golf';
 import './HomePage.scss';
+import RoundOverview from './RoundOverview';
 
 const mockGolfers = createGolfers(['Tom', 'Dick', 'Harry']);
 const mockCourse = createGolfCourse('Lunar Lake', 9);
@@ -19,9 +20,18 @@ const HomePage = () => {
   return (
     <PageLayout>
       <PageContent>
-        <h1 className="uk-text-lead">
-          Lets go for a <FaBeer />?
-        </h1>
+        <div className="content-spacing">
+          <div className="uk-card">
+            <h1 className="uk-text-lead">
+              Lets go for a <FaBeer />?
+            </h1>
+          </div>
+          <ul>
+            <li>
+              <RoundOverview round={mockRound} />
+            </li>
+          </ul>
+        </div>
       </PageContent>
       <div className="bottom-sheet uk-box-shadow-xlarge">Bottom Sheet</div>
     </PageLayout>

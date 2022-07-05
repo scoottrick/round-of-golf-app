@@ -11,3 +11,18 @@
   left: 0;
   right: 0;
 }
+
+.App {
+  * {
+    box-sizing: border-box;
+  }
+
+  .rounded {
+    border-radius: 1rem;
+  }
+
+  ul {
+    list-style: none;
+    padding-left: 0;
+  }
+}
