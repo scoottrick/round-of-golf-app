@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { RadioPicker, RadioPickerOption } from '../../components/RadioPicker';
 import { GolfCourse, GolfUtils } from '../../model/golf';
 
@@ -8,6 +8,7 @@ interface Props {
 }
 const CourseDetails: FC<Props> = ({ course, courseUpdated }) => {
   const holeCount = course.holes.length;
+  const holeOptions: number[] = [9, 18];
 
   const dispatchCourseUpdate = (courseData: Partial<GolfCourse>) => {
     courseUpdated({ ...course, ...courseData });
@@ -27,18 +28,12 @@ const CourseDetails: FC<Props> = ({ course, courseUpdated }) => {
     }
   };
 
-  const holeCountOptions: RadioPickerOption<number>[] = [
-    { value: 9, text: '9 Holes' },
-    { value: 18, text: '18 Holes' },
-  ];
-
   return (
     <>
       <h1 className="text-2xl mb-4">Course</h1>
       <RadioPicker
-        options={holeCountOptions}
-        selectedValue={holeCount}
-        optionSelected={value => holeCountChanged(value)}
+        options={holeOptions.map(count => `${count} Holes`)}
+        optionSelected={index => holeCountChanged(holeOptions[index])}
       />
     </>
   );
