@@ -1,32 +1,16 @@
-import { truncate } from 'fs';
-import React, { FC, ReactNode, useEffect, useState } from 'react';
+import React, { FC, ReactElement, ReactNode } from 'react';
+import { classNames } from '../model/utils';
 
-function classNames(nameArgs: (string | [boolean, string, string?])[]): string {
-  const allNames: string[] = [];
-  for (let nameArg of nameArgs) {
-    if (typeof nameArg === 'string') {
-      allNames.push(nameArg);
-      continue;
-    }
-    if (Array.isArray(nameArg)) {
-      const [condition, trueClass, falseClass] = nameArg;
-      const result = condition ? trueClass : falseClass;
-      result && allNames.push(result);
-      continue;
-    }
-  }
-  return allNames.join(' ');
-}
-export interface RadioPickerOption<T> {
-  value: T;
-  text: string;
-}
-
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface RadioButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   selected: boolean;
   children: ReactNode;
 }
-const RadioButton: FC<ButtonProps> = ({ selected, children, ...props }) => {
+export const RadioButton: FC<RadioButtonProps> = ({
+  selected,
+  children,
+  ...props
+}) => {
   const activeBg = 'bg-green-600';
   const activeText = 'text-white';
   const className = classNames([
@@ -44,33 +28,21 @@ const RadioButton: FC<ButtonProps> = ({ selected, children, ...props }) => {
   );
 };
 
-interface Props {
-  options: string[];
-  optionSelected: (index: number) => void;
+interface RadioPickerProps extends React.HTMLAttributes<HTMLDivElement> {
+  className?: string;
+  children?: ReactElement<RadioButtonProps> | ReactElement<RadioButtonProps>[];
 }
-export const RadioPicker: FC<Props> = ({ options, optionSelected }) => {
-  const [selected, setSelected] = useState(0);
-
-  useEffect(() => {
-    optionSelected(selected);
-  }, [selected]);
-
-  const optionClicked = (index: any) => {
-    setSelected(index);
-    // optionSelected(index);
-  };
-
-  const radioItems = options.map((option, i) => {
-    return (
-      <RadioButton
-        key={i}
-        selected={i === selected}
-        onClick={() => optionClicked(i)}
-      >
-        {option}
-      </RadioButton>
-    );
-  });
-
-  return <div className="flex flex-row items-center">{radioItems}</div>;
+export const RadioPicker: FC<RadioPickerProps> = ({
+  className,
+  children,
+  ...props
+}) => {
+  return (
+    <div
+      className={classNames(['flex flex-row items-center', className])}
+      {...props}
+    >
+      {children}
+    </div>
+  );
 };

@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import { RadioPicker, RadioPickerOption } from '../../components/RadioPicker';
+import { RadioButton, RadioPicker } from '../../components/RadioPicker';
 import { GolfCourse, GolfUtils } from '../../model/golf';
 
 interface Props {
@@ -28,13 +28,20 @@ const CourseDetails: FC<Props> = ({ course, courseUpdated }) => {
     }
   };
 
+  const radioButtons = holeOptions.map((count, i) => (
+    <RadioButton
+      key={i}
+      selected={holeCount === count}
+      onClick={() => holeCountChanged(count)}
+    >
+      {count} Holes
+    </RadioButton>
+  ));
+
   return (
     <>
       <h1 className="text-2xl mb-4">Course</h1>
-      <RadioPicker
-        options={holeOptions.map(count => `${count} Holes`)}
-        optionSelected={index => holeCountChanged(holeOptions[index])}
-      />
+      <RadioPicker>{radioButtons}</RadioPicker>
     </>
   );
 };
