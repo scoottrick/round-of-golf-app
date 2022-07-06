@@ -4,11 +4,9 @@ import HomePage from './pages/home-page/HomePage';
 import RoundSetupPage from './pages/round-setup-page/RoundSetupPage';
 import ScorecardPage from './pages/scorecard-page/ScorecardPage';
 
-import './App.scss';
-
 function App() {
   return (
-    <div className="App">
+    <div>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="round-setup" element={<RoundSetupPage />} />
