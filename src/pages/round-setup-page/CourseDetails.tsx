@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { RadioPicker, RadioOption } from '../../components/RadioPicker';
+import { RadioPicker, RadioPickerOption } from '../../components/RadioPicker';
 import { GolfCourse, GolfUtils } from '../../model/golf';
 
 interface Props {
@@ -27,7 +27,7 @@ const CourseDetails: FC<Props> = ({ course, courseUpdated }) => {
     }
   };
 
-  const holeCountOptions: RadioOption<number>[] = [
+  const holeCountOptions: RadioPickerOption<number>[] = [
     { value: 9, text: '9 Holes' },
     { value: 18, text: '18 Holes' },
   ];
@@ -38,7 +38,7 @@ const CourseDetails: FC<Props> = ({ course, courseUpdated }) => {
       <RadioPicker
         options={holeCountOptions}
         selectedValue={holeCount}
-        selectionUpdated={value => holeCountChanged(value)}
+        optionSelected={value => holeCountChanged(value)}
       />
     </>
   );
