@@ -17,8 +17,10 @@ const HomePage = () => {
       <PageContent>
         <RoundList rounds={rounds} />
       </PageContent>
-      <div className="py-8 px-4 flex flex-row justify-center items-center">
-        Bottom Sheet
+      <div className="py-8 px-4 shadow-inner flex flex-row justify-center items-center">
+        <button className="py-2 px-4 box-border border shadow-sm shadow-green-100 border-green-600 text-green-600 hover:shadow-md active:bg-green-600 active:text-white">
+          Play a Round
+        </button>
       </div>
     </PageLayout>
   );
