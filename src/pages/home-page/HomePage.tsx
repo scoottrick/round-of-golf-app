@@ -11,13 +11,13 @@ const mockCourse = GolfUtils.newPar3Course('Lunar Lake', 9);
 const mockRound = GolfUtils.newRound(mockGolfers, mockCourse);
 
 const HomePage = () => {
-  const rounds = [];
+  const rounds = [mockRound];
   return (
     <PageLayout>
       <PageContent>
         <RoundList rounds={rounds} />
       </PageContent>
-      <div className="py-6 px-2 flex flex-row justify-center items-center">
+      <div className="py-8 px-4 flex flex-row justify-center items-center">
         Bottom Sheet
       </div>
     </PageLayout>

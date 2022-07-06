@@ -16,13 +16,13 @@ const RoundOverview: FC<Props> = ({ round, showWinner }) => {
   const winnerHidden = !round.completed && !showWinner;
 
   return (
-    <div className="shadow py-4 px-6">
+    <div className="shadow py-4 px-8">
       <div className="flex flex-row justify-between mb-2">
-        <span className="text-2xl font-bold">{courseName}</span>
-        <span className="text-sm">{dateText}</span>
+        <div className="text-2xl font-bold">{courseName}</div>
+        <div className="text-sm">{dateText}</div>
       </div>
-      <p>
-        Golfers: <span className="italic">{golferNames}</span>
+      <p className="overflow-hidden text-ellipsis whitespace-nowrap max-w-full">
+        Golfers: <i className="italic">{golferNames}</i>
       </p>
       <p data-app-hidden={winnerHidden}>
         Winner: <span className="italic">{winnerText}</span>
