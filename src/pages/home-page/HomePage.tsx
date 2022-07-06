@@ -1,37 +1,28 @@
 import React from 'react';
-import { FaBeer } from 'react-icons/fa';
 import {
   PageContent,
   PageLayout,
 } from '../../components/page-layout/PageLayout';
-import {
-  createGolfCourse,
-  createGolfers,
-  createGolfRound,
-} from '../../model/golf';
-import './HomePage.scss';
+import { GolfUtils } from '../../model/golf';
 import RoundOverview from './RoundOverview';
 
-const mockGolfers = createGolfers(['Tom', 'Dick', 'Harry']);
-const mockCourse = createGolfCourse('Lunar Lake', 9);
-const mockRound = createGolfRound(mockGolfers, mockCourse);
+const mockGolfers = GolfUtils.createGolfers(['Tom', 'Dick', 'Harry']);
+const mockCourse = GolfUtils.newPar3Course('Lunar Lake', 9);
+const mockRound = GolfUtils.newRound(mockGolfers, mockCourse);
 
 const HomePage = () => {
   return (
     <PageLayout>
       <PageContent>
-        <div>
-          <h1>
-            Lets go for a <FaBeer className="inline-block" />?
-          </h1>
-        </div>
         <ul>
           <li>
             <RoundOverview round={mockRound} />
           </li>
         </ul>
       </PageContent>
-      <div className="bottom-sheet uk-box-shadow-xlarge">Bottom Sheet</div>
+      <div className="py-6 px-2 flex flex-row justify-center items-center">
+        Bottom Sheet
+      </div>
     </PageLayout>
   );
 };

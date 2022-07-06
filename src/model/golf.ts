@@ -28,35 +28,6 @@ export interface GolfRound {
   course: GolfCourse;
 }
 
-export const createGolfers = (names: string[]) => {
-  const validNames = names.filter(name => name.trim().length);
-  const golfers: Golfer[] = validNames.map(name => ({
-    id: entityId(),
-    name: name,
-    scores: [],
-  }));
-  return golfers;
-};
-
-export const createGolfCourse = (name: string, holeCount: number) => {
-  const id = entityId();
-  const holes = arrayOfN(holeCount).map(() => ({ par: 0 }));
-  const course: GolfCourse = { id, name, holes };
-  return course;
-};
-
-export const createGolfRound = (golfers: Golfer[], course: GolfCourse) => {
-  const emptyScores = course.holes.map(() => 0);
-  const newRound: GolfRound = {
-    id: entityId(),
-    date: Date.now(),
-    completed: false,
-    golfers: golfers.map(g => ({ ...g, scores: emptyScores })),
-    course: course,
-  };
-  return newRound;
-};
-
 export class GolfUtils {
   static createGolfers(names: string[]): Golfer[] {
     return names.map(name => GolfUtils.createGolfer(name));
@@ -81,6 +52,20 @@ export class GolfUtils {
       name,
       arrayOfN(holeCount).map(() => ({ par: 3 }))
     );
+  }
+
+  static newRound(golfers: Golfer[], course: GolfCourse): GolfRound {
+    const blankScores = course.holes.map(() => 0);
+    const golfersWithScores = golfers.map(golfer => {
+      return { ...golfer, scores: [...blankScores] };
+    });
+    return {
+      id: entityId(),
+      date: Date.now(),
+      completed: false,
+      golfers: golfersWithScores,
+      course: course,
+    };
   }
 
   static calcStrokes(golfer: Golfer): number {
