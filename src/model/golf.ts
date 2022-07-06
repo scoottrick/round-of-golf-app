@@ -1,9 +1,5 @@
-import { v4 as uuid } from 'uuid';
+import { arrayOfN, createId, EntityId } from './utils';
 
-type EntityId = string;
-
-const entityId = () => uuid() as EntityId;
-const arrayOfN = (n: number) => [...new Array(n)];
 export interface Golfer {
   id: EntityId;
   name: string;
@@ -34,7 +30,7 @@ export class GolfUtils {
   }
   private static createGolfer(name: string): Golfer {
     return {
-      id: entityId(),
+      id: createId(),
       name: name,
       scores: [],
     };
@@ -42,7 +38,7 @@ export class GolfUtils {
 
   static newCourse(name: string, holes: GolfHole[]): GolfCourse {
     return {
-      id: entityId(),
+      id: createId(),
       name: name || `${holes.length} Holes`,
       holes: holes,
     };
@@ -60,7 +56,7 @@ export class GolfUtils {
       return { ...golfer, scores: [...blankScores] };
     });
     return {
-      id: entityId(),
+      id: createId(),
       date: Date.now(),
       completed: false,
       golfers: golfersWithScores,
