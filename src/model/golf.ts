@@ -45,3 +45,31 @@ export const createGolfRound = (golfers: Golfer[], course: GolfCourse) => {
   };
   return newRound;
 };
+
+export class GolfUtils {
+  static calcStrokes(golfer: Golfer): number {
+    return golfer.scores
+      .filter(s => s > 0)
+      .reduce((acc, curr) => acc + curr, 0);
+  }
+
+  static findRoundWinners(round: GolfRound): Golfer[] {
+    const golfers = [...round.golfers];
+    const initialGolfer = golfers.splice(0, 1)[0];
+    let leaders = [initialGolfer];
+    let minScore = this.calcStrokes(initialGolfer);
+    for (let golfer of round.golfers) {
+      const score = this.calcStrokes(golfer);
+      if (score === minScore) {
+        leaders = [...leaders, golfer];
+        break;
+      }
+      if (score < minScore) {
+        leaders = [golfer];
+        minScore = score;
+        break;
+      }
+    }
+    return leaders;
+  }
+}

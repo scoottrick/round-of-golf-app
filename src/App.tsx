@@ -6,7 +6,7 @@ import ScorecardPage from './pages/scorecard-page/ScorecardPage';
 
 function App() {
   return (
-    <div>
+    <div className="App">
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="round-setup" element={<RoundSetupPage />} />
