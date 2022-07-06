@@ -1,13 +1,25 @@
-import React from 'react';
-import { ControlPanel, PageContent, PageLayout } from '../../components';
+import React, { useState } from 'react';
+import {
+  ControlPanel,
+  PageContent,
+  PageLayout,
+  RectButton,
+} from '../../components';
+import GolferList from './GolferList';
+
+const defaultGolfer = 'Scott';
 
 const RoundSetupPage = () => {
+  const [golferNames, setGolferNames] = useState([defaultGolfer, '']);
+
   return (
     <PageLayout>
       <PageContent>
-        <h1>New Round</h1>
+        <GolferList names={golferNames} namesUpdated={setGolferNames} />
       </PageContent>
-      <ControlPanel>Controls</ControlPanel>
+      <ControlPanel>
+        <RectButton>Let's Play</RectButton>
+      </ControlPanel>
     </PageLayout>
   );
 };
