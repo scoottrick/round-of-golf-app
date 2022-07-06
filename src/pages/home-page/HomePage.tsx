@@ -21,6 +21,7 @@ const HomePage = () => {
     <PageLayout>
       <PageContent>
         <div className="content-spacing">
+          <div className="text-3xl font-bold underline">Hey</div>
           <div className="uk-card">
             <h1 className="uk-text-lead">
               Lets go for a <FaBeer />?
