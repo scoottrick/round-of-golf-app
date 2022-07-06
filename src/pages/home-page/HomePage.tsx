@@ -1,9 +1,11 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
+  ControlPanel,
   PageContent,
   PageLayout,
-} from '../../components/page-layout/PageLayout';
+  RectButton,
+} from '../../components';
 import { GolfUtils } from '../../model/golf';
 import { AppRoutes } from '../../model/routes';
 import RoundList from './RoundList';
@@ -25,14 +27,9 @@ const HomePage = () => {
       <PageContent>
         <RoundList rounds={rounds} />
       </PageContent>
-      <div className="py-8 px-4 shadow-inner flex flex-row justify-center items-center">
-        <button
-          onClick={() => playRoundClicked()}
-          className="py-2 px-4 box-border border shadow-sm shadow-green-100 border-green-600 text-green-600 hover:shadow-md active:bg-green-600 active:text-white"
-        >
-          Play a Round
-        </button>
-      </div>
+      <ControlPanel>
+        <RectButton onClick={() => playRoundClicked()}>Play a Round</RectButton>
+      </ControlPanel>
     </PageLayout>
   );
 };

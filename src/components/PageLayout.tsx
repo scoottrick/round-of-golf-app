@@ -18,4 +18,19 @@ const PageContent: FC<PageContentProps> = ({ children }) => {
   return <div className="py-8 px-4 flex-1">{children}</div>;
 };
 
-export { PageLayout, PageContent };
+interface ControlPanelProps {
+  hidden?: boolean;
+  children: ReactNode;
+}
+const ControlPanel: FC<ControlPanelProps> = ({ hidden, children }) => {
+  return (
+    <div
+      data-app-hidden={hidden}
+      className="py-8 px-4 shadow-inner flex flex-row justify-center items-center"
+    >
+      {children}
+    </div>
+  );
+};
+
+export { PageLayout, PageContent, ControlPanel };

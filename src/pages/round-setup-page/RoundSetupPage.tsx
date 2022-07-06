@@ -1,6 +1,14 @@
 import React from 'react';
+import { ControlPanel, PageContent, PageLayout } from '../../components';
 
 const RoundSetupPage = () => {
-  return <h1 className="uk-text-lead">Round Setup</h1>;
+  return (
+    <PageLayout>
+      <PageContent>
+        <h1>New Round</h1>
+      </PageContent>
+      <ControlPanel>Controls</ControlPanel>
+    </PageLayout>
+  );
 };
 export default RoundSetupPage;
