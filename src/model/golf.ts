@@ -36,6 +36,10 @@ export class GolfUtils {
     };
   }
 
+  static holesWithPar(count: number, par: number): GolfHole[] {
+    return arrayOfN(count).map(() => ({ par }));
+  }
+
   static newCourse(name: string, holes: GolfHole[]): GolfCourse {
     return {
       id: createId(),

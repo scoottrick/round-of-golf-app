@@ -20,7 +20,7 @@ const GolferList: FC<Props> = ({ names, namesUpdated }) => {
   ));
   return (
     <div>
-      <h1 className="text-lg">Golfers</h1>
+      <h1 className="text-2xl">Golfers</h1>
       <ul>{nameItems}</ul>
     </div>
   );
