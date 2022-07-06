@@ -1,4 +1,5 @@
-import React, { FC, useId } from 'react';
+import React, { FC } from 'react';
+import { RadioPicker, RadioOption } from '../../components/RadioPicker';
 import { GolfCourse, GolfUtils } from '../../model/golf';
 
 interface Props {
@@ -7,8 +8,6 @@ interface Props {
 }
 const CourseDetails: FC<Props> = ({ course, courseUpdated }) => {
   const holeCount = course.holes.length;
-  const id9Holes = `9-holes-${useId()}`;
-  const id18Holes = `18-holes-${useId()}`;
 
   const dispatchCourseUpdate = (courseData: Partial<GolfCourse>) => {
     courseUpdated({ ...course, ...courseData });
@@ -28,29 +27,19 @@ const CourseDetails: FC<Props> = ({ course, courseUpdated }) => {
     }
   };
 
+  const holeCountOptions: RadioOption<number>[] = [
+    { value: 9, text: '9 Holes' },
+    { value: 18, text: '18 Holes' },
+  ];
+
   return (
     <>
       <h1 className="text-2xl mb-4">Course</h1>
-      <div className="flex flex-row items-center">
-        <span className="inline-block text-center flex-1">
-          <input
-            type="radio"
-            id={id9Holes}
-            checked={holeCount === 9}
-            onChange={() => holeCountChanged(9)}
-          />
-          <label htmlFor={id9Holes}>9 Holes</label>
-        </span>
-        <span className="inline-block text-center flex-1">
-          <input
-            type="radio"
-            id={id18Holes}
-            checked={holeCount === 18}
-            onChange={() => holeCountChanged(18)}
-          />
-          <label htmlFor={id18Holes}>18 Holes</label>
-        </span>
-      </div>
+      <RadioPicker
+        options={holeCountOptions}
+        selectedValue={holeCount}
+        selectionUpdated={value => holeCountChanged(value)}
+      />
     </>
   );
 };
