@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   PageLayout,
   PageContent,
@@ -6,7 +6,7 @@ import {
   RectButton,
 } from '../../components';
 import { GolfUtils } from '../../model/golf';
-import { classNames } from '../../model/utils';
+import { classNames, EntityId } from '../../model/utils';
 
 const mockGolfers = GolfUtils.createGolfers(['Tom', 'Dick', 'Harry']);
 const mockCourse = GolfUtils.newPar3Course('Lunar Lake', 18);
@@ -16,8 +16,8 @@ const CardDataCell = ({ heading, shaded, children }) => {
   return (
     <span
       className={classNames([
-        'text-center',
-        [heading, 'border-b-2 py-2 px-4', 'border-b py-1 px-2'],
+        'text-center flex justify-center items-center',
+        [heading, 'border-b-2 py-4 px-4', 'border-b py-2 px-2 flex-1'],
         [shaded, 'bg-gray-200'],
       ])}
     >
@@ -30,7 +30,7 @@ const CardDataList = ({ grows, children }) => {
   return (
     <div
       className={classNames([
-        'flex flex-col border-r last:border-r-0',
+        'flex flex-col border-r min-h-full last:border-r-0',
         [grows, 'flex-1'],
       ])}
     >
@@ -54,7 +54,17 @@ const HoleColumn = ({ holes }) => {
   );
 };
 
-const ScoreColumn = ({ golfer }) => {
+const ScoreColumn = ({ golfer, scoreUpdated }) => {
+  const scoreInputFocused = (inputElement: HTMLInputElement) => {
+    inputElement.setSelectionRange(0, inputElement.value.length);
+  };
+  const scoreChanged = (holeIndex: string, inputValue: string) => {
+    const score = parseInt(inputValue);
+    if (score && !isNaN(score)) {
+      scoreUpdated(holeIndex, score);
+    }
+  };
+
   return (
     <CardDataList grows={true}>
       <CardDataCell heading={true} shaded={false}>
@@ -62,32 +72,62 @@ const ScoreColumn = ({ golfer }) => {
       </CardDataCell>
       {golfer.scores.map((s, i) => (
         <CardDataCell key={i} shaded={i % 2 !== 0} heading={false}>
-          {s || '--'}
+          <input
+            className="bg-transparent text-center w-full h-full"
+            type="text"
+            inputMode="numeric"
+            size={2}
+            value={s || '--'}
+            onChange={e => scoreChanged(i, e.target.value)}
+            onFocus={e => scoreInputFocused(e.target)}
+          />
         </CardDataCell>
       ))}
     </CardDataList>
   );
 };
 
-const Card = ({ holes, golfers }) => {
+const Card = ({ holes, golfers, scoreUpdated }) => {
   return (
-    <div className="flex flex-row justify-between">
+    <div className="scorecard flex flex-row justify-between min-h-full">
       <HoleColumn holes={holes} />
       {golfers.map((g, i) => (
-        <ScoreColumn key={i} golfer={g} />
+        <ScoreColumn
+          key={i}
+          golfer={g}
+          scoreUpdated={(holeIndex, score) => scoreUpdated(holeIndex, i, score)}
+        />
       ))}
     </div>
   );
 };
 
 const ScorecardPage = () => {
-  const golfRound = mockRound;
+  const [golfRound, setGolfRound] = useState(mockRound);
+
+  const golferScoreUpdated = (
+    holeIndex: number,
+    golferIndex: number,
+    score: number
+  ) => {
+    const golfers = [...golfRound.golfers];
+    const golfer = golfers[golferIndex];
+    golfer.scores.splice(holeIndex, 1, score);
+    setGolfRound({ ...golfRound, golfers: golfers });
+  };
+
   return (
     <PageLayout>
       <PageContent className="py-0 px-0">
-        <Card holes={golfRound.course.holes} golfers={golfRound.golfers} />
+        <Card
+          holes={golfRound.course.holes}
+          golfers={golfRound.golfers}
+          scoreUpdated={(holeIndex, golferIndex, score) => {
+            golferScoreUpdated(holeIndex, golferIndex, score);
+          }}
+        />
       </PageContent>
-      <ControlPanel data-app-hidden={false}>
+      <ControlPanel data-app-hidden={true}>
         <RectButton>Hello</RectButton>
       </ControlPanel>
     </PageLayout>
