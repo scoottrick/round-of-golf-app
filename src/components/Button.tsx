@@ -1,8 +1,7 @@
 import React, { FC, ReactNode } from 'react';
-import { classNames } from '../model/utils';
+import { ButtonComponent, classNames } from '../model/utils';
 
-interface RectButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
+interface RectButtonProps extends ButtonComponent {}
 export const RectButton: FC<RectButtonProps> = ({
   className,
   children,
@@ -26,8 +25,7 @@ export const RectButton: FC<RectButtonProps> = ({
   );
 };
 
-interface IconButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
+interface IconButtonProps extends ButtonComponent {}
 export const IconButton: FC<IconButtonProps> = ({
   className,
   children,

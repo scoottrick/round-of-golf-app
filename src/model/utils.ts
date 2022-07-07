@@ -3,6 +3,10 @@ import { v4 as uuid } from 'uuid';
 export type EntityId = string;
 export const createId = () => uuid() as EntityId;
 
+export interface DivComponent extends React.HTMLAttributes<HTMLDivElement> {}
+export interface ButtonComponent
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
+
 export const arrayOfN = (n: number) => [...new Array(n)];
 
 type NameArg = undefined | string | [boolean, string, string?];
