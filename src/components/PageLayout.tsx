@@ -23,7 +23,10 @@ const PageContent: FC<PageContentProps> = ({
   ...props
 }) => {
   return (
-    <div className={classNames(['py-8 px-4 flex-1', className])} {...props}>
+    <div
+      className={classNames(['py-8 px-4 flex-1 overflow-auto', className])}
+      {...props}
+    >
       {children}
     </div>
   );

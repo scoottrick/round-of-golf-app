@@ -1,10 +1,15 @@
 import React from 'react';
-import { PageLayout, PageContent, ControlPanel } from '../../components';
+import {
+  PageLayout,
+  PageContent,
+  ControlPanel,
+  RectButton,
+} from '../../components';
 import { GolfUtils } from '../../model/golf';
 import { classNames } from '../../model/utils';
 
 const mockGolfers = GolfUtils.createGolfers(['Tom', 'Dick', 'Harry']);
-const mockCourse = GolfUtils.newPar3Course('Lunar Lake', 9);
+const mockCourse = GolfUtils.newPar3Course('Lunar Lake', 18);
 const mockRound = GolfUtils.newRound(mockGolfers, mockCourse);
 
 const CardDataCell = ({ heading, shaded, children }) => {
@@ -82,8 +87,8 @@ const ScorecardPage = () => {
       <PageContent className="py-0 px-0">
         <Card holes={golfRound.course.holes} golfers={golfRound.golfers} />
       </PageContent>
-      <ControlPanel data-app-hidden={true}>
-        <></>
+      <ControlPanel data-app-hidden={false}>
+        <RectButton>Hello</RectButton>
       </ControlPanel>
     </PageLayout>
   );
