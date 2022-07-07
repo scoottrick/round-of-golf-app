@@ -9,14 +9,14 @@ import { GolfUtils } from '../../model/golf';
 import { classNames, EntityId } from '../../model/utils';
 
 const mockGolfers = GolfUtils.createGolfers(['Tom', 'Dick', 'Harry']);
-const mockCourse = GolfUtils.newPar3Course('Lunar Lake', 18);
+const mockCourse = GolfUtils.newPar3Course('Lunar Lake', 2);
 const mockRound = GolfUtils.newRound(mockGolfers, mockCourse);
 
 const CardDataCell = ({ heading, shaded, children }) => {
   return (
     <span
       className={classNames([
-        'text-center flex justify-center items-center',
+        'text-center flex justify-center items-center max-h-20',
         [heading, 'border-b-2 py-4 px-4', 'border-b py-2 px-2 flex-1'],
         [shaded, 'bg-gray-200'],
       ])}
@@ -127,7 +127,7 @@ const ScorecardPage = () => {
           }}
         />
       </PageContent>
-      <ControlPanel data-app-hidden={true}>
+      <ControlPanel data-app-hidden={!GolfUtils.roundIsComplete(golfRound)}>
         <RectButton>Hello</RectButton>
       </ControlPanel>
     </PageLayout>

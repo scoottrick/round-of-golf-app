@@ -36,6 +36,16 @@ export class GolfUtils {
     };
   }
 
+  static golferCompletedRound(golfer: Golfer): boolean {
+    return golfer.scores.every(score => score > 0);
+  }
+
+  static roundIsComplete(round: GolfRound): boolean {
+    return round.golfers.every(golfer =>
+      GolfUtils.golferCompletedRound(golfer)
+    );
+  }
+
   static holesWithPar(count: number, par: number): GolfHole[] {
     return arrayOfN(count).map(() => ({ par }));
   }
