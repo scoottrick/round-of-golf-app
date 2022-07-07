@@ -1,18 +1,21 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import {
   ControlPanel,
   PageContent,
   PageLayout,
   RectButton,
 } from '../../components';
-import { GolfUtils } from '../../model/golf';
+import { GolfRound, GolfUtils } from '../../model/golf';
 import CourseDetails from './CourseDetails';
 import GolferList from './GolferList';
 
 const defaultGolfer = 'Scott';
 const defaultCourse = GolfUtils.newPar3Course('', 9);
 
-const RoundSetupPage = () => {
+interface Props {
+  setupCompleted: (round: GolfRound) => void;
+}
+const RoundSetupPage: FC<Props> = ({ setupCompleted }) => {
   const [golferNames, setGolferNames] = useState([defaultGolfer, '']);
   const [courseData, setCourseData] = useState(defaultCourse);
 
@@ -23,7 +26,8 @@ const RoundSetupPage = () => {
   };
 
   const startRoundClicked = () => {
-    console.log({ newRound: buildRound() });
+    const newRound = buildRound();
+    setupCompleted(newRound);
   };
 
   return (
