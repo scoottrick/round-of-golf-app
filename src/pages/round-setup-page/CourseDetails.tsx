@@ -39,10 +39,12 @@ const CourseDetails: FC<Props> = ({ course, courseUpdated }) => {
   ));
 
   return (
-    <>
-      <h1 className="text-2xl mb-4">Course</h1>
+    <section className="mb-4 last:mb-0">
+      <header className="mb-8">
+        <h1 className="text-3xl mt-4">Course</h1>
+      </header>
       <RadioPicker>{radioButtons}</RadioPicker>
-    </>
+    </section>
   );
 };
 export default CourseDetails;
