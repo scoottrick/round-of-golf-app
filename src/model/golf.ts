@@ -25,6 +25,12 @@ export interface GolfRound {
 }
 
 export class GolfUtils {
+  static createMockRound() {
+    const mockGolfers = GolfUtils.createGolfers(['Tom', 'Dick', 'Harry']);
+    const mockCourse = GolfUtils.newPar3Course('Lunar Lake', 9);
+    return GolfUtils.newRound(mockGolfers, mockCourse);
+  }
+
   static createGolfers(names: string[]): Golfer[] {
     return names.map(name => GolfUtils.createGolfer(name));
   }

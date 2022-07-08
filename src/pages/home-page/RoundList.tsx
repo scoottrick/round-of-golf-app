@@ -10,14 +10,15 @@ const NoRoundsMessage: FC = () => (
 
 interface Props {
   rounds: GolfRound[];
+  roundSelected: (round: GolfRound) => void;
 }
-const RoundList: FC<Props> = ({ rounds }) => {
+const RoundList: FC<Props> = ({ rounds, roundSelected }) => {
   if (!rounds.length) {
     return <NoRoundsMessage />;
   }
 
   const listItems = rounds.map(r => (
-    <li key={r.id}>
+    <li key={r.id} onClick={() => roundSelected(r)}>
       <RoundOverview round={r} showWinner={false} />
     </li>
   ));

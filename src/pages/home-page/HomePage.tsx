@@ -6,26 +6,27 @@ import {
   PageLayout,
   RectButton,
 } from '../../components';
-import { GolfUtils } from '../../model/golf';
+import { useGolfRounds } from '../../data/GolfRoundsContext';
+import { GolfRound } from '../../model/golf';
 import { AppRoutes } from '../../model/routes';
 import RoundList from './RoundList';
 
-const mockGolfers = GolfUtils.createGolfers(['Tom', 'Dick', 'Harry']);
-const mockCourse = GolfUtils.newPar3Course('Lunar Lake', 9);
-const mockRound = GolfUtils.newRound(mockGolfers, mockCourse);
-
 const HomePage = () => {
   const goTo = useNavigate();
-  const rounds = [mockRound];
+  const rounds = useGolfRounds();
 
   const playRoundClicked = () => {
     goTo(AppRoutes.roundSetup);
   };
 
+  const roundSelected = (round: GolfRound) => {
+    goTo(AppRoutes.withPath(AppRoutes.scorecard, round.id));
+  };
+
   return (
     <PageLayout>
       <PageContent>
-        <RoundList rounds={rounds} />
+        <RoundList rounds={rounds} roundSelected={r => roundSelected(r)} />
       </PageContent>
       <ControlPanel>
         <RectButton onClick={() => playRoundClicked()}>Play a Round</RectButton>
