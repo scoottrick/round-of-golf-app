@@ -1,11 +1,14 @@
 import React, { FC } from 'react';
+import { GrClose } from 'react-icons/gr';
+import { IconButton, RectButton } from '../../components';
 import { GolfRound, GolfUtils } from '../../model/golf';
 
 interface Props {
   round: GolfRound;
+  deleteClicked: () => void;
   showWinner?: boolean;
 }
-const RoundOverview: FC<Props> = ({ round, showWinner }) => {
+const RoundOverview: FC<Props> = ({ round, showWinner, deleteClicked }) => {
   const { date, golfers, course } = round;
   const courseName = course.name || `${course.holes.length} Holes`;
   const dateText = new Date(date).toLocaleTimeString();
@@ -27,6 +30,11 @@ const RoundOverview: FC<Props> = ({ round, showWinner }) => {
       <p data-app-hidden={winnerHidden}>
         Winner: <span className="italic">{winnerText}</span>
       </p>
+      <div className="text-right">
+        <IconButton onClick={() => deleteClicked()}>
+          <GrClose />
+        </IconButton>
+      </div>
     </div>
   );
 };

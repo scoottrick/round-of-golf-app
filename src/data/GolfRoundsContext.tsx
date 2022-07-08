@@ -1,10 +1,12 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { GolfRound } from '../model/golf';
+import { deleteRound } from '../model/storage';
 
 const GolfRoundsContext = React.createContext([] as GolfRound[]);
 const SetGolfRoundsContext = React.createContext((_: GolfRound[]) => {});
 const AddGolfRoundContext = React.createContext((_: GolfRound) => {});
+const DeleteGolfRoundContext = React.createContext((_: GolfRound) => {});
 
 export function useGolfRounds() {
   return React.useContext(GolfRoundsContext);
@@ -16,6 +18,10 @@ export function useSetGolfRounds() {
 
 export function useAddGolfRound() {
   return React.useContext(AddGolfRoundContext);
+}
+
+export function useDeleteGolfRound() {
+  return React.useContext(DeleteGolfRoundContext);
 }
 
 export function useCurrentRound() {
@@ -45,19 +51,28 @@ export const GolfRoundsProvider: React.FC<Props> = ({
 }) => {
   console.log(rounds);
 
-  const setRounds = (newValue: GolfRound[]) => {
+  const setGolfRounds = (newValue: GolfRound[]) => {
     roundsUpdated([...newValue]);
   };
 
-  const addRound = (newRound: GolfRound) => {
+  const addGolfRound = (newRound: GolfRound) => {
     roundsUpdated([newRound, ...rounds]);
+  };
+
+  const deleteGolfRound = (deletedRound: GolfRound) => {
+    roundsUpdated(rounds.filter(r => r.id !== deletedRound.id));
+    deleteRound(deletedRound);
   };
 
   return (
     <GolfRoundsContext.Provider value={rounds}>
-      <SetGolfRoundsContext.Provider value={rounds => setRounds(rounds)}>
-        <AddGolfRoundContext.Provider value={round => addRound(round)}>
-          {children}
+      <SetGolfRoundsContext.Provider value={rounds => setGolfRounds(rounds)}>
+        <AddGolfRoundContext.Provider value={round => addGolfRound(round)}>
+          <DeleteGolfRoundContext.Provider
+            value={round => deleteGolfRound(round)}
+          >
+            {children}
+          </DeleteGolfRoundContext.Provider>
         </AddGolfRoundContext.Provider>
       </SetGolfRoundsContext.Provider>
     </GolfRoundsContext.Provider>
