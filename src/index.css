@@ -10,15 +10,8 @@
   .icon-btn {
     @apply p-2 text-green-600 border border-green-600;
   }
-  .icon-btn svg > path {
-    @apply stroke-green-600;
-  }
   .icon-btn:hover,
   .icon-btn:active {
     @apply bg-green-600 text-white;
-  }
-  .icon-btn:hover svg > path,
-  .icon-btn:active svg > path {
-    @apply stroke-white;
   }
 }
