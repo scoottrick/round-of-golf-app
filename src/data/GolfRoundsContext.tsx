@@ -1,4 +1,5 @@
-import * as React from 'react';
+import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { GolfRound } from '../model/golf';
 
 const GolfRoundsContext = React.createContext([] as GolfRound[]);
@@ -15,6 +16,22 @@ export function useSetGolfRounds() {
 
 export function useAddGolfRound() {
   return React.useContext(AddGolfRoundContext);
+}
+
+export function useCurrentRound() {
+  const golfRounds = useGolfRounds();
+  const setGolfRounds = useSetGolfRounds();
+  const currentId = useParams().roundId || '';
+  const currentIndex = golfRounds.findIndex(r => r.id === currentId);
+  const current = golfRounds[currentIndex];
+  // const [currentRound, setCurrentRound] = useState(golfRounds[currentIndex]);
+
+  const setCurrent = (round: GolfRound) => {
+    golfRounds[currentIndex] = round;
+    setGolfRounds(golfRounds);
+  };
+
+  return [current, setCurrent] as [GolfRound, (round: GolfRound) => void];
 }
 
 interface Props {

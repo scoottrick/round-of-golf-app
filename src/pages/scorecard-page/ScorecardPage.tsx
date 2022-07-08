@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   PageLayout,
   PageContent,
   ControlPanel,
   RectButton,
 } from '../../components';
+import { useCurrentRound } from '../../data/GolfRoundsContext';
 import { GolfUtils } from '../../model/golf';
+import { AppRoutes } from '../../model/routes';
 import { classNames, EntityId } from '../../model/utils';
 
 const mockGolfers = GolfUtils.createGolfers(['Tom', 'Dick', 'Harry']);
@@ -102,8 +105,18 @@ const Card = ({ holes, golfers, scoreUpdated }) => {
   );
 };
 
+const RoundNotFound: FC = () => {
+  const goTo = useNavigate();
+  useEffect(() => goTo(AppRoutes.home), []);
+  return <></>;
+};
+
 const ScorecardPage = () => {
-  const [golfRound, setGolfRound] = useState(mockRound);
+  const [golfRound, setGolfRound] = useCurrentRound();
+
+  if (!golfRound) {
+    return <RoundNotFound />;
+  }
 
   const golferScoreUpdated = (
     holeIndex: number,
