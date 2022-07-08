@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { XIcon } from '@heroicons/react/outline';
+import { TrashIcon, XIcon } from '@heroicons/react/outline';
 import { IconButton, RectButton } from '../../components';
 import { GolfRound, GolfUtils } from '../../model/golf';
 
@@ -32,7 +32,7 @@ const RoundOverview: FC<Props> = ({ round, showWinner, deleteClicked }) => {
       </p>
       <div className="text-right">
         <IconButton onClick={() => deleteClicked()}>
-          <XIcon />
+          <TrashIcon className="w-4 h-4" />
         </IconButton>
       </div>
     </div>

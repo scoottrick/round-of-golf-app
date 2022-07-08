@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { IconButton } from '../../components';
-import { PlusIcon, XIcon } from '@heroicons/react/outline';
+import { PlusIcon, MinusIcon } from '@heroicons/react/outline';
 
 interface Props {
   names: string[];
@@ -34,7 +34,7 @@ const GolferList: FC<Props> = ({ names, namesUpdated }) => {
         className="ml-8"
         onClick={() => removeClicked(i)}
       >
-        <XIcon className="w-4 h-4" />
+        <MinusIcon className="w-4 h-4" />
       </IconButton>
     </li>
   ));
