@@ -118,6 +118,7 @@ const RoundNotFound: FC = () => {
 
 const ScorecardPage = () => {
   const [golfRound, setGolfRound] = useCurrentRound();
+  const goTo = useNavigate();
 
   if (!golfRound) {
     return <RoundNotFound />;
@@ -131,7 +132,14 @@ const ScorecardPage = () => {
     const golfers = [...golfRound.golfers];
     const golfer = golfers[golferIndex];
     golfer.scores.splice(holeIndex, 1, score);
-    setGolfRound({ ...golfRound, golfers: golfers });
+    const completedRound = golfers.every(g =>
+      GolfUtils.golferCompletedRound(g)
+    );
+    setGolfRound({ ...golfRound, golfers: golfers, completed: completedRound });
+  };
+
+  const doneClicked = () => {
+    goTo(AppRoutes.home);
   };
 
   return (
@@ -145,8 +153,10 @@ const ScorecardPage = () => {
           }}
         />
       </PageContent>
-      <ControlPanel data-app-hidden={!GolfUtils.roundIsComplete(golfRound)}>
-        <RectButton>Hello</RectButton>
+      <ControlPanel>
+        <RectButton onClick={() => doneClicked()}>
+          {golfRound.completed ? 'Done' : 'Leave'}
+        </RectButton>
       </ControlPanel>
     </PageLayout>
   );

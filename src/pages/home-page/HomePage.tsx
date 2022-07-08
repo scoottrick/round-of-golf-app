@@ -13,7 +13,7 @@ import RoundList from './RoundList';
 
 const HomePage = () => {
   const goTo = useNavigate();
-  const rounds = useGolfRounds();
+  const rounds = useGolfRounds().sort((a, b) => b.date - a.date);
 
   const playRoundClicked = () => {
     goTo(AppRoutes.roundSetup);
