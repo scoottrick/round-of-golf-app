@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
 import { GolfRound } from '../model/golf';
 
@@ -24,7 +24,6 @@ export function useCurrentRound() {
   const currentId = useParams().roundId || '';
   const currentIndex = golfRounds.findIndex(r => r.id === currentId);
   const current = golfRounds[currentIndex];
-  // const [currentRound, setCurrentRound] = useState(golfRounds[currentIndex]);
 
   const setCurrent = (round: GolfRound) => {
     golfRounds[currentIndex] = round;

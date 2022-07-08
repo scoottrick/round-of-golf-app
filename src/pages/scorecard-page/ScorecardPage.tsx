@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   PageLayout,
@@ -9,11 +9,7 @@ import {
 import { useCurrentRound } from '../../data/GolfRoundsContext';
 import { GolfUtils } from '../../model/golf';
 import { AppRoutes } from '../../model/routes';
-import { classNames, EntityId } from '../../model/utils';
-
-const mockGolfers = GolfUtils.createGolfers(['Tom', 'Dick', 'Harry']);
-const mockCourse = GolfUtils.newPar3Course('Lunar Lake', 2);
-const mockRound = GolfUtils.newRound(mockGolfers, mockCourse);
+import { classNames } from '../../model/utils';
 
 const CardDataCell = ({ heading, shaded, children }) => {
   return (
