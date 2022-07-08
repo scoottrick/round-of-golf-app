@@ -1,14 +1,23 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import { GolfRoundsProvider } from './data/GolfRoundsContext';
 import { GolfRound, GolfUtils } from './model/golf';
 import { AppRoutes } from './model/routes';
+import { loadRounds, saveRound } from './model/storage';
 import HomePage from './pages/home-page/HomePage';
 import RoundSetupPage from './pages/round-setup-page/RoundSetupPage';
 import ScorecardPage from './pages/scorecard-page/ScorecardPage';
 
+function useStoredRounds() {
+  const [rounds, setRounds] = useState(() => loadRounds());
+  useEffect(() => {
+    rounds.forEach(r => saveRound(r));
+  }, [rounds]);
+  return [rounds, setRounds] as [GolfRound[], (_: GolfRound[]) => void];
+}
+
 function App() {
-  const [allRounds, setAllRounds] = useState([GolfUtils.createMockRound()]);
+  const [allRounds, setAllRounds] = useStoredRounds();
 
   const golfRoundsUpdated = (rounds: GolfRound[]) => {
     console.log('-- rounds updated', rounds);

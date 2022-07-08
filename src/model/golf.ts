@@ -57,11 +57,7 @@ export class GolfUtils {
   }
 
   static newCourse(name: string, holes: GolfHole[]): GolfCourse {
-    return {
-      id: createId(),
-      name: name || `${holes.length} Holes`,
-      holes: holes,
-    };
+    return { id: createId(), name: name, holes: holes };
   }
   static newPar3Course(name: string, holeCount: number): GolfCourse {
     return GolfUtils.newCourse(

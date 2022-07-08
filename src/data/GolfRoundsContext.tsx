@@ -43,6 +43,8 @@ export const GolfRoundsProvider: React.FC<Props> = ({
   roundsUpdated,
   children,
 }) => {
+  console.log(rounds);
+
   const setRounds = (newValue: GolfRound[]) => {
     roundsUpdated([...newValue]);
   };
