@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { GrClose } from 'react-icons/gr';
+import { XIcon } from '@heroicons/react/outline';
 import { IconButton, RectButton } from '../../components';
 import { GolfRound, GolfUtils } from '../../model/golf';
 
@@ -32,7 +32,7 @@ const RoundOverview: FC<Props> = ({ round, showWinner, deleteClicked }) => {
       </p>
       <div className="text-right">
         <IconButton onClick={() => deleteClicked()}>
-          <GrClose />
+          <XIcon />
         </IconButton>
       </div>
     </div>

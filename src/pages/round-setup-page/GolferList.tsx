@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
-import { GrAdd, GrClose } from 'react-icons/gr';
 import { IconButton } from '../../components';
+import { PlusIcon, XIcon } from '@heroicons/react/outline';
 
 interface Props {
   names: string[];
@@ -34,7 +34,7 @@ const GolferList: FC<Props> = ({ names, namesUpdated }) => {
         className="ml-8"
         onClick={() => removeClicked(i)}
       >
-        <GrClose />
+        <XIcon className="w-4 h-4" />
       </IconButton>
     </li>
   ));
@@ -43,7 +43,7 @@ const GolferList: FC<Props> = ({ names, namesUpdated }) => {
       <header className="flex flex-row justify-between items-start mb-8">
         <h1 className="text-3xl mt-4 flex-1">Golfers</h1>
         <IconButton onClick={() => addClicked()}>
-          <GrAdd />
+          <PlusIcon className="w-4 h-4 text-orange-600" />
         </IconButton>
       </header>
       <ul>{nameItems}</ul>

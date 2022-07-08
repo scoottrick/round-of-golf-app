@@ -1,4 +1,4 @@
-import React, { FC, ReactNode } from 'react';
+import React, { FC } from 'react';
 import { ButtonComponent, classNames } from '../model/utils';
 
 interface RectButtonProps extends ButtonComponent {}
