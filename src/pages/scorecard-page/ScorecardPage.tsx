@@ -53,7 +53,7 @@ const HoleColumn = ({ holes }) => {
   );
 };
 
-const ScoreColumn = ({ golfer, scoreUpdated }) => {
+const ScoreColumn = ({ golfer, scoreUpdated, columnIndex, columnCount }) => {
   const scoreInputFocused = (inputElement: HTMLInputElement) => {
     inputElement.setSelectionRange(0, inputElement.value.length);
   };
@@ -62,6 +62,12 @@ const ScoreColumn = ({ golfer, scoreUpdated }) => {
     if (score && !isNaN(score)) {
       scoreUpdated(holeIndex, score);
     }
+  };
+
+  const tabIndexStart = 1;
+  const calcTabIndex = (rowIndex: number) => {
+    const rowOffset = rowIndex * columnCount;
+    return tabIndexStart + columnIndex + rowOffset;
   };
 
   return (
@@ -75,6 +81,7 @@ const ScoreColumn = ({ golfer, scoreUpdated }) => {
             className="bg-transparent text-center w-full h-full"
             type="text"
             inputMode="numeric"
+            tabIndex={calcTabIndex(i)}
             size={2}
             value={s || '--'}
             onChange={e => scoreChanged(i, e.target.value)}
@@ -94,6 +101,8 @@ const Card = ({ holes, golfers, scoreUpdated }) => {
         <ScoreColumn
           key={i}
           golfer={g}
+          columnIndex={i}
+          columnCount={golfers.length}
           scoreUpdated={(holeIndex, score) => scoreUpdated(holeIndex, i, score)}
         />
       ))}
