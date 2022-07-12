@@ -1,6 +1,7 @@
 import React, { FC, useState } from 'react';
 import { RadioButton, RadioPicker } from '../../components/RadioPicker';
 import { GolfCourse, GolfUtils } from '../../model/golf';
+import PageSection from './PageSection';
 
 interface Props {
   course: GolfCourse;
@@ -39,12 +40,12 @@ const CourseDetails: FC<Props> = ({ course, courseUpdated }) => {
   ));
 
   return (
-    <section className="mb-4 last:mb-0">
+    <PageSection>
       <header className="mb-8">
         <h1 className="text-3xl mt-4">Course</h1>
       </header>
       <RadioPicker>{radioButtons}</RadioPicker>
-    </section>
+    </PageSection>
   );
 };
 export default CourseDetails;

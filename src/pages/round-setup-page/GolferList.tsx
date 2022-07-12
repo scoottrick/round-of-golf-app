@@ -2,6 +2,8 @@ import React, { FC } from 'react';
 import { IconButton } from '../../components';
 import { PlusIcon, MinusIcon } from '@heroicons/react/outline';
 import AddGolferButton from './AddGolferButton';
+import RemoveGolferButton from './RemoveGolferButton';
+import GolferNameInput from './GolferNameInput';
 
 interface Props {
   names: string[];
@@ -24,29 +26,13 @@ const GolferList: FC<Props> = ({ names, namesUpdated }) => {
       key={i}
       className="flex flex-row justify-between align-middle mb-4 last:mb-0"
     >
-      <input
-        className="border-b-2 text-md py-1 flex-1"
-        type="text"
-        value={name}
-        onChange={e => nameChanged(e.target.value, i)}
-      />
-      <IconButton
-        data-app-hidden={names.length <= 1}
-        className="ml-8"
+      <GolferNameInput value={name} updated={n => nameChanged(n, i)} />
+      <RemoveGolferButton
+        hidden={names.length <= 1}
         onClick={() => removeClicked(i)}
-      >
-        <MinusIcon className="w-4 h-4" />
-      </IconButton>
+      />
     </li>
   ));
-  return (
-    <section className="mb-8 last:mb-0">
-      <header className="flex flex-row justify-between items-start mb-8">
-        <h1 className="text-3xl mt-4 flex-1">Golfers</h1>
-        <AddGolferButton onClick={() => addClicked()} />
-      </header>
-      <ul>{nameItems}</ul>
-    </section>
-  );
+  return <ul>{nameItems}</ul>;
 };
 export default GolferList;

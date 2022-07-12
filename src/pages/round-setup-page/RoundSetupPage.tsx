@@ -9,8 +9,10 @@ import {
 import { useAddGolfRound } from '../../data/GolfRoundsContext';
 import { GolfUtils } from '../../model/golf';
 import { AppRoutes } from '../../model/routes';
-import CourseDetails from './CourseDetails';
+import CourseDetails from './CourseSetup';
 import GolferList from './GolferList';
+import GolferSetup from './GolferSetup';
+import StartRoundButton from './StartRoundButton';
 
 const defaultGolfer = 'Scott';
 const defaultCourse = GolfUtils.newPar3Course('', 9);
@@ -34,11 +36,11 @@ const RoundSetupPage: FC<Props> = ({}) => {
   return (
     <PageLayout>
       <PageContent>
-        <GolferList names={golferNames} namesUpdated={setGolferNames} />
+        <GolferSetup golferNames={golferNames} namesUpdated={setGolferNames} />
         <CourseDetails course={courseData} courseUpdated={setCourseData} />
       </PageContent>
       <ControlPanel>
-        <RectButton onClick={startRoundClicked}>Let's Play</RectButton>
+        <StartRoundButton onClick={startRoundClicked} />
       </ControlPanel>
     </PageLayout>
   );
