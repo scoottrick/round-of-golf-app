@@ -1,25 +1,21 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import {
-  ControlPanel,
-  PageContent,
-  PageLayout,
-  RectButton,
-} from '../../components';
+import { ControlPanel, PageContent, PageLayout } from '../../components';
 import {
   useDeleteGolfRound,
   useGolfRounds,
 } from '../../data/GolfRoundsContext';
 import { GolfRound } from '../../model/golf';
 import { AppRoutes } from '../../model/routes';
-import RoundList from './RoundList';
+import NewRoundButton from './NewRoundButton';
+import RoundList from './RoundHistory';
 
 const HomePage = () => {
   const goTo = useNavigate();
   const rounds = useGolfRounds();
   const deleteGolfRound = useDeleteGolfRound();
 
-  const playRoundClicked = () => {
+  const startNewRound = () => {
     goTo(AppRoutes.roundSetup);
   };
 
@@ -41,7 +37,7 @@ const HomePage = () => {
         />
       </PageContent>
       <ControlPanel>
-        <RectButton onClick={() => playRoundClicked()}>Play a Round</RectButton>
+        <NewRoundButton onClick={() => startNewRound()} />
       </ControlPanel>
     </PageLayout>
   );

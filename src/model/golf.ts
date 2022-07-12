@@ -86,6 +86,33 @@ export class GolfUtils {
       .reduce((acc, curr) => acc + curr, 0);
   }
 
+  static determineWinner(golfers: Golfer[]): Golfer[] {
+    const roundComplete = golfers.every(g => GolfUtils.golferCompletedRound(g));
+    if (!roundComplete) {
+      return [];
+    }
+    const scoreboard = {} as { [score: number]: Golfer[] };
+    for (let golfer of golfers) {
+      const score = GolfUtils.calcStrokes(golfer);
+      if (Array.isArray(scoreboard[score])) {
+        scoreboard[score].push(golfer);
+        break;
+      }
+      scoreboard[score] = [golfer];
+    }
+
+    const minKey = Object.keys(scoreboard)
+      .map(key => parseInt(key))
+      .reduce((min, current, i) => {
+        if (i === 0) {
+          return current;
+        }
+        return current < min ? current : min;
+      }, 0);
+
+    return scoreboard[minKey];
+  }
+
   static findRoundWinners(round: GolfRound): Golfer[] {
     const golfers = [...round.golfers];
     const initialGolfer = golfers.splice(0, 1)[0];
