@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { GolfRoundsProvider } from './data/GolfRoundsContext';
-import { GolfRound, GolfUtils } from './model/golf';
+import { GolfRound } from './model/golf';
 import { AppRoutes } from './model/routes';
 import { loadRounds, saveRound } from './model/storage';
 import HomePage from './pages/home-page/HomePage';

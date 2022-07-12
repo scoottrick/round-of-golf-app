@@ -1,7 +1,4 @@
 import React, { FC } from 'react';
-import { IconButton } from '../../components';
-import { PlusIcon, MinusIcon } from '@heroicons/react/outline';
-import AddGolferButton from './AddGolferButton';
 import RemoveGolferButton from './RemoveGolferButton';
 import GolferNameInput from './GolferNameInput';
 
@@ -17,9 +14,6 @@ const GolferList: FC<Props> = ({ names, namesUpdated }) => {
   const removeClicked = (index: number) => {
     names.splice(index, 1);
     namesUpdated([...names]);
-  };
-  const addClicked = () => {
-    namesUpdated([...names, '']);
   };
   const nameItems = names.map((name, i) => (
     <li

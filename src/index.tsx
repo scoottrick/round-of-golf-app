@@ -7,7 +7,7 @@ import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 import { firebaseApp } from './firebase';
 
-// firebaseApp();
+firebaseApp();
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

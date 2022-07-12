@@ -1,16 +1,10 @@
 import React, { FC, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {
-  ControlPanel,
-  PageContent,
-  PageLayout,
-  RectButton,
-} from '../../components';
+import { ControlPanel, PageContent, PageLayout } from '../../components';
 import { useAddGolfRound } from '../../data/GolfRoundsContext';
 import { GolfUtils } from '../../model/golf';
 import { AppRoutes } from '../../model/routes';
 import CourseDetails from './CourseSetup';
-import GolferList from './GolferList';
 import GolferSetup from './GolferSetup';
 import StartRoundButton from './StartRoundButton';
 
@@ -18,7 +12,7 @@ const defaultGolfer = 'Scott';
 const defaultCourse = GolfUtils.newPar3Course('', 9);
 
 interface Props {}
-const RoundSetupPage: FC<Props> = ({}) => {
+const RoundSetupPage: FC<Props> = () => {
   const [golferNames, setGolferNames] = useState([defaultGolfer, '']);
   const [courseData, setCourseData] = useState(defaultCourse);
 

@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { RadioButton, RadioPicker } from '../../components/RadioPicker';
 import { GolfCourse, GolfUtils } from '../../model/golf';
 import PageSection from './PageSection';

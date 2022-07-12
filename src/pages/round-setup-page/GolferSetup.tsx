@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import AddGolferButton from './AddGolferButton';
 import GolferList from './GolferList';
 import PageSection from './PageSection';
-
-const defaultGolfer = 'Scott';
 
 const GolferSetup = ({ golferNames, namesUpdated }) => {
   const addClicked = () => {

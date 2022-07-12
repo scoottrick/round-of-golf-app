@@ -112,7 +112,7 @@ const Card = ({ holes, golfers, scoreUpdated }) => {
 
 const RoundNotFound: FC = () => {
   const goTo = useNavigate();
-  useEffect(() => goTo(AppRoutes.home), []);
+  useEffect(() => goTo(AppRoutes.home));
   return <></>;
 };
 

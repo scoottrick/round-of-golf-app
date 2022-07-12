@@ -1,5 +1,4 @@
 import { GolfRound } from './golf';
-import { EntityId } from './utils';
 
 const storageName = 'app-rog';
 const roundsName = 'rounds';
@@ -45,5 +44,3 @@ export function loadRounds() {
   );
   return roundKeys.map(k => getItem(k)) as GolfRound[];
 }
-
-export default {};
