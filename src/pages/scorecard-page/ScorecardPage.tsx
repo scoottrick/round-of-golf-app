@@ -9,13 +9,9 @@ import {
 import { useCurrentRound } from '../../data/GolfRoundsContext';
 import { GolfUtils } from '../../model/golf';
 import { AppRoutes } from '../../model/routes';
+import DoneButton from './DoneButton';
+import RoundNotFound from './RoundNotFound';
 import ScoreGrid from './ScoreGrid';
-
-const RoundNotFound: FC = () => {
-  const goTo = useNavigate();
-  useEffect(() => goTo(AppRoutes.home));
-  return <></>;
-};
 
 const ScorecardPage = () => {
   const [golfRound, setGolfRound] = useCurrentRound();
@@ -54,9 +50,10 @@ const ScorecardPage = () => {
         />
       </PageContent>
       <ControlPanel>
-        <RectButton onClick={() => doneClicked()}>
-          {golfRound.completed ? 'Done' : 'Leave'}
-        </RectButton>
+        <DoneButton
+          roundComplete={golfRound.completed}
+          onClick={() => doneClicked()}
+        />
       </ControlPanel>
     </PageLayout>
   );
