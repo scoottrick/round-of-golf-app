@@ -3,6 +3,7 @@ import { GolfRound } from '../../model/GolfRound';
 import NoHistoryMessage from './NoHistoryMessage';
 import GolfRoundCard from './GolfRoundCard';
 import { Golfer } from '../../model/Golfer';
+import { getParticipatingGolfers } from '../../data/rounds';
 
 interface Props {
   rounds: GolfRound[];
@@ -26,7 +27,7 @@ const RoundHistory: FC<Props> = ({
     <li key={r.id}>
       <GolfRoundCard
         round={r}
-        golfers={golfers}
+        golfers={getParticipatingGolfers(r, golfers)}
         onOpen={() => roundSelected(r)}
         onDelete={() => roundDeleted(r)}
       />

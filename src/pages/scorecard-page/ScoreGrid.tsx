@@ -45,7 +45,7 @@ interface ScoreRowProps {
 }
 const ScoreRow: FC<ScoreRowProps> = ({
   holeIndex,
-  scoreData: scoreData,
+  scoreData,
   scoreUpdated,
 }) => {
   const isOddRow = holeIndex % 2 !== 0;

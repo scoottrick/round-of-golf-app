@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ControlPanel, PageContent, PageLayout } from '../../components';
-import { useAddGolfRound } from '../../data/GolfRoundsContext';
+import { useAddGolfers, useAddGolfRound } from '../../data/GolfRoundsContext';
 import { createCourse } from '../../model/GolfCourse';
 import { createGolfer } from '../../model/Golfer';
 import { createRound } from '../../model/GolfRound';
@@ -19,12 +19,14 @@ const RoundSetupPage: FC<Props> = () => {
   const [courseData, setCourseData] = useState(defaultCourse);
 
   const addNewRound = useAddGolfRound();
+  const addNewGolfers = useAddGolfers();
   const goTo = useNavigate();
 
-  const startRoundClicked = () => {
+  const startRound = () => {
     const validNames = golferNames.filter(n => n?.trim().length);
     const golfers = validNames.map(name => createGolfer(name));
     const round = createRound(courseData.holeCount, golfers);
+    addNewGolfers(golfers);
     addNewRound(round);
     goTo(AppRoutes.withPath(AppRoutes.scorecard, round.id));
   };
@@ -36,7 +38,7 @@ const RoundSetupPage: FC<Props> = () => {
         <CourseSetup courseData={courseData} courseUpdated={setCourseData} />
       </PageContent>
       <ControlPanel>
-        <StartRoundButton onClick={startRoundClicked} />
+        <StartRoundButton onClick={startRound} />
       </ControlPanel>
     </PageLayout>
   );
