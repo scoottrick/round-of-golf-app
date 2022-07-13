@@ -3,7 +3,7 @@ import { getItem, setItem, getKeysFor, storagePath } from './data-utils';
 
 const localKey = 'golfers';
 
-export async function getAllGolfers(): Promise<Golfer[]> {
+export async function getGolfers(): Promise<Golfer[]> {
   return await Promise.all(getKeysFor(localKey).map(key => getItem(key)));
 }
 
