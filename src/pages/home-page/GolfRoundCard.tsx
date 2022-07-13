@@ -1,16 +1,24 @@
-import React from 'react';
+import React, { FC } from 'react';
+import { Golfer } from '../../model/Golfer';
+import { GolfRound } from '../../model/GolfRound';
 import RoundControls from './RoundControls';
 import RoundDetails from './RoundDetails';
 
-const GolfRoundCard = ({ round, onRoundOpen, onRoundDelete }) => {
+interface Props {
+  round: GolfRound;
+  golfers: Golfer[];
+  onOpen: () => void;
+  onDelete: () => void;
+}
+const GolfRoundCard: FC<Props> = ({ round, golfers, onOpen, onDelete }) => {
   return (
-    <div className="shadow py-4 px-8" onClick={onRoundOpen}>
+    <div className="shadow py-4 px-8" onClick={onOpen}>
       <RoundDetails
-        date={round.date}
-        golfers={round.golfers}
+        timestamp={round.timestamp}
+        golfers={golfers}
         course={round.course}
       />
-      <RoundControls onDelete={onRoundDelete} />
+      <RoundControls onDelete={onDelete} />
     </div>
   );
 };

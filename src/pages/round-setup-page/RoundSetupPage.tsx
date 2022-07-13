@@ -2,14 +2,16 @@ import React, { FC, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ControlPanel, PageContent, PageLayout } from '../../components';
 import { useAddGolfRound } from '../../data/GolfRoundsContext';
-import { GolfUtils } from '../../model/golf';
+import { createCourse } from '../../model/GolfCourse';
+import { createGolfer } from '../../model/Golfer';
+import { createRound } from '../../model/GolfRound';
 import { AppRoutes } from '../../model/routes';
-import CourseDetails from './CourseSetup';
+import CourseSetup from './CourseSetup';
 import GolferSetup from './GolferSetup';
 import StartRoundButton from './StartRoundButton';
 
 const defaultGolfer = 'Scott';
-const defaultCourse = GolfUtils.newPar3Course('', 9);
+const defaultCourse = createCourse('9 Hole Course', 9);
 
 interface Props {}
 const RoundSetupPage: FC<Props> = () => {
@@ -21,17 +23,17 @@ const RoundSetupPage: FC<Props> = () => {
 
   const startRoundClicked = () => {
     const validNames = golferNames.filter(n => n?.trim().length);
-    const golfers = GolfUtils.createGolfers(validNames);
-    const newRound = GolfUtils.newRound(golfers, courseData);
-    addNewRound(newRound);
-    goTo(AppRoutes.withPath(AppRoutes.scorecard, newRound.id));
+    const golfers = validNames.map(name => createGolfer(name));
+    const round = createRound(courseData.holeCount, golfers);
+    addNewRound(round);
+    goTo(AppRoutes.withPath(AppRoutes.scorecard, round.id));
   };
 
   return (
     <PageLayout>
       <PageContent>
         <GolferSetup golferNames={golferNames} namesUpdated={setGolferNames} />
-        <CourseDetails course={courseData} courseUpdated={setCourseData} />
+        <CourseSetup courseData={courseData} courseUpdated={setCourseData} />
       </PageContent>
       <ControlPanel>
         <StartRoundButton onClick={startRoundClicked} />

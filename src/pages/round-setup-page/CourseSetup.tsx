@@ -1,39 +1,26 @@
 import React, { FC } from 'react';
 import { RadioButton, RadioPicker } from '../../components/RadioPicker';
-import { GolfCourse, GolfUtils } from '../../model/golf';
+import { GolfUtils } from '../../model/golf';
+import { GolfCourse } from '../../model/GolfCourse';
 import PageSection from './PageSection';
 
 interface Props {
-  course: GolfCourse;
+  courseData: GolfCourse;
   courseUpdated: (course: GolfCourse) => void;
 }
-const CourseDetails: FC<Props> = ({ course, courseUpdated }) => {
-  const holeCount = course.holes.length;
+const CourseDetails: FC<Props> = ({ courseData, courseUpdated }) => {
+  const currentCount = courseData.holeCount;
   const holeOptions: number[] = [9, 18];
 
-  const dispatchCourseUpdate = (courseData: Partial<GolfCourse>) => {
-    courseUpdated({ ...course, ...courseData });
-  };
-
-  const holeCountChanged = (newCount: number) => {
-    const holesAdded = newCount - holeCount;
-    if (holesAdded > 0) {
-      const newHoles = GolfUtils.holesWithPar(holesAdded, 3);
-      dispatchCourseUpdate({ holes: [...course.holes, ...newHoles] });
-      return;
-    }
-    if (holesAdded < 0) {
-      const newHoles = course.holes.slice(0, holesAdded);
-      dispatchCourseUpdate({ holes: newHoles });
-      return;
-    }
+  const holeCountUpdated = (newCount: number) => {
+    courseUpdated({ ...courseData, holeCount: newCount });
   };
 
   const radioButtons = holeOptions.map((count, i) => (
     <RadioButton
       key={i}
-      selected={holeCount === count}
-      onClick={() => holeCountChanged(count)}
+      selected={currentCount === count}
+      onClick={() => holeCountUpdated(count)}
     >
       {count} Holes
     </RadioButton>

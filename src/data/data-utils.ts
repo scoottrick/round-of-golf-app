@@ -21,6 +21,11 @@ function setItem<T>(key: string, value: T): Promise<void> {
   return Promise.resolve();
 }
 
+function removeItem(key: string): Promise<void> {
+  localStorage.removeItem(key);
+  return Promise.resolve();
+}
+
 function getAppKeys(): string[] {
   const keys = [] as string[];
   for (let i = 0; i < localStorage.length; i++) {
@@ -39,4 +44,4 @@ function getKeysFor(name: string): string[] {
   );
 }
 
-export { storagePath, getItem, setItem, getKeysFor };
+export { storagePath, getItem, setItem, removeItem, getKeysFor };

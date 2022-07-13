@@ -1,15 +1,22 @@
 import React, { FC } from 'react';
-import { GolfRound } from '../../model/golf';
+import { GolfRound } from '../../model/GolfRound';
 import NoHistoryMessage from './NoHistoryMessage';
 import GolfRoundCard from './GolfRoundCard';
+import { Golfer } from '../../model/Golfer';
 
 interface Props {
   rounds: GolfRound[];
+  golfers: Golfer[];
   roundSelected: (round: GolfRound) => void;
   roundDeleted: (round: GolfRound) => void;
 }
-const RoundList: FC<Props> = ({ rounds, roundSelected, roundDeleted }) => {
-  const roundList = rounds.sort((a, b) => b.date - a.date);
+const RoundHistory: FC<Props> = ({
+  rounds,
+  golfers,
+  roundSelected,
+  roundDeleted,
+}) => {
+  const roundList = rounds.sort((a, b) => b.timestamp - a.timestamp);
 
   if (!rounds || !rounds.length) {
     return <NoHistoryMessage />;
@@ -19,11 +26,12 @@ const RoundList: FC<Props> = ({ rounds, roundSelected, roundDeleted }) => {
     <li key={r.id}>
       <GolfRoundCard
         round={r}
-        onRoundOpen={() => roundSelected(r)}
-        onRoundDelete={() => roundDeleted(r)}
+        golfers={golfers}
+        onOpen={() => roundSelected(r)}
+        onDelete={() => roundDeleted(r)}
       />
     </li>
   ));
   return <ul>{listItems}</ul>;
 };
-export default RoundList;
+export default RoundHistory;

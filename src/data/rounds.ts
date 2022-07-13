@@ -1,5 +1,11 @@
 import { GolfRound } from '../model/GolfRound';
-import { getItem, setItem, getKeysFor, storagePath } from './data-utils';
+import {
+  getItem,
+  setItem,
+  getKeysFor,
+  storagePath,
+  removeItem,
+} from './data-utils';
 
 const localKey = 'rounds';
 
@@ -9,4 +15,8 @@ export async function getRounds(): Promise<GolfRound[]> {
 
 export async function saveRound(round: GolfRound): Promise<void> {
   return await setItem(storagePath(localKey, round.id), round);
+}
+
+export async function deleteRound(round: GolfRound): Promise<void> {
+  return await removeItem(storagePath(localKey, round.id));
 }

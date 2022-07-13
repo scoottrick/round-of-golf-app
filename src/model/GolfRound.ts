@@ -1,14 +1,15 @@
 import { v4 as uuid } from 'uuid';
 
 import { Golfer } from './Golfer';
+import { GolfCourse, createCourse } from './GolfCourse';
 import { createBlankScorecard, GolfScorecard } from './GolfScorecard';
 
 export interface GolfRound {
   id: string;
   timestamp: number;
   completed: boolean;
-  scorecards: GolfScorecard[];
-  course: { holeCount: number };
+  scorecard: GolfScorecard;
+  course: GolfCourse;
 }
 
 export function createRound(holeCount: number, golfers: Golfer[]): GolfRound {
@@ -16,9 +17,7 @@ export function createRound(holeCount: number, golfers: Golfer[]): GolfRound {
     id: uuid(),
     completed: false,
     timestamp: Date.now(),
-    course: { holeCount },
-    scorecards: golfers.map(golfer =>
-      createBlankScorecard(golfer.id, holeCount)
-    ),
+    course: createCourse(`${holeCount} Holes`, holeCount),
+    scorecard: createBlankScorecard(golfers, holeCount),
   };
 }

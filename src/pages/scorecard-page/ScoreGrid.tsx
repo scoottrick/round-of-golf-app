@@ -1,5 +1,7 @@
-import React, { ReactNode } from 'react';
-import { arrayOfN } from '../../model/utils';
+import React, { FC, ReactNode } from 'react';
+import { Golfer } from '../../model/Golfer';
+import { GolfRound } from '../../model/GolfRound';
+import { GolfScorecard } from '../../model/GolfScorecard';
 
 const ScorecardCell = ({ children, className }) => (
   <td
@@ -36,67 +38,100 @@ const ScoreInput = ({ value, updated }) => {
   );
 };
 
-const HoleRow = ({ rowIndex, golfers, scoreUpdated }) => {
-  const isOddRow = rowIndex % 2 !== 0;
-  const cells = [
-    <ScorecardCell className="border-gray-700 border-r-2">
-      {rowIndex + 1}
-    </ScorecardCell>,
-    ...golfers.map((g, i) => (
+interface ScoreRowProps {
+  holeIndex: number;
+  scoreData: { golferId: string; name: string; strokes: number[] }[];
+  scoreUpdated: (golferId: string, holeIndex: number, score: number) => void;
+}
+const ScoreRow: FC<ScoreRowProps> = ({
+  holeIndex,
+  scoreData: scoreData,
+  scoreUpdated,
+}) => {
+  const isOddRow = holeIndex % 2 !== 0;
+  const cells = scoreData.map(data => {
+    return (
       <ScorecardCell
-        key={g.id}
+        key={data.golferId}
         className="flex-1 border-gray-700 border-r last:border-r-0"
       >
         <ScoreInput
-          value={g.scores[rowIndex]}
-          updated={score => scoreUpdated(score, i)}
+          value={data.strokes[holeIndex]}
+          updated={score => scoreUpdated(data.golferId, holeIndex, score)}
         />
       </ScorecardCell>
-    )),
-  ];
+    );
+  });
   return (
     <ScorecardRow shade={isOddRow} className="flex-1">
+      <ScorecardCell className="border-gray-700 border-r-2">
+        {holeIndex + 1}
+      </ScorecardCell>
       {cells}
     </ScorecardRow>
   );
 };
 
-const HeaderRow = ({ golfers }) => {
-  const cells = [
-    <ScorecardCell className="py-4 border-gray-700 border-r-2">
-      Hole #
-    </ScorecardCell>,
-    ...golfers.map((g, i) => (
+const ScorecardHeader = ({ names }) => {
+  const cells = names.map((name, i) => {
+    return (
       <ScorecardCell
         key={i}
         className="py-4 flex-1 border-gray-700 border-r last:border-r-0"
       >
-        {g.name}
+        {name}
       </ScorecardCell>
-    )),
-  ];
+    );
+  });
   return (
     <ScorecardRow shade={false} className="border-b-2 border-gray-700">
+      <ScorecardCell className="py-4 border-gray-700 border-r-2">
+        Hole #
+      </ScorecardCell>
       {cells}
     </ScorecardRow>
   );
 };
 
-const ScoreGrid = ({ holeCount, golfers, scoreUpdated }) => {
-  const rows = [<HeaderRow golfers={golfers} />];
-  for (let i = 0; i < holeCount; i++) {
+interface Props {
+  round: GolfRound;
+  golfers: Golfer[];
+  scoresUpdated: (scorecard: GolfScorecard) => void;
+}
+const ScoreGrid: FC<Props> = ({ round, golfers, scoresUpdated }) => {
+  const { scorecard, course } = round;
+  const scoreData = golfers.map(golfer => {
+    return {
+      golferId: golfer.id,
+      name: golfer.name,
+      strokes: scorecard[golfer.id],
+    };
+  });
+
+  function updateScore(golferId: string, holeIndex: number, score: number) {
+    scorecard[golferId][holeIndex] = score;
+    scoresUpdated(scorecard);
+  }
+
+  const rows = [] as JSX.Element[];
+  for (let i = 0; i < course.holeCount; i++) {
     rows.push(
-      <HoleRow
+      <ScoreRow
         key={i}
-        rowIndex={i}
-        golfers={golfers}
-        scoreUpdated={(score, golferIndex) => {
-          scoreUpdated(score, golferIndex, i);
-        }}
+        holeIndex={i}
+        scoreData={scoreData}
+        scoreUpdated={updateScore}
       />
     );
   }
-  return <table className="min-h-full flex flex-col">{rows}</table>;
+  return (
+    <table className="min-h-full flex flex-col">
+      <thead>
+        <ScorecardHeader names={scoreData.map(data => data.name)} />
+      </thead>
+      <tbody>{rows}</tbody>
+    </table>
+  );
 };
 
 export default ScoreGrid;
