@@ -1,15 +1,10 @@
-import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTimeout } from '../../hooks/useTimeout';
 import { AppRoutes } from '../../model/routes';
 
 const RoundNotFound = () => {
   const goTo = useNavigate();
-  useEffect(() => {
-    const timeId = setTimeout(() => {
-      goTo(AppRoutes.home);
-    }, 1500);
-    return () => clearTimeout(timeId);
-  });
+  useTimeout(1500, () => goTo(AppRoutes.home));
 
   return <div className="py-12 px-4 text-center text-3xl">Round Not Found</div>;
 };
