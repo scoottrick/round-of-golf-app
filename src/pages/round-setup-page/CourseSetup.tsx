@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import { RadioButton, RadioPicker } from '../../components/RadioPicker';
-import { GolfUtils } from '../../model/golf';
 import { GolfCourse } from '../../model/GolfCourse';
 import PageSection from './PageSection';
 

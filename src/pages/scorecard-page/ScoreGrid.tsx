@@ -1,4 +1,4 @@
-import React, { FC, ReactNode } from 'react';
+import React, { FC } from 'react';
 import { Golfer } from '../../model/Golfer';
 import { GolfRound } from '../../model/GolfRound';
 import { GolfScorecard } from '../../model/GolfScorecard';

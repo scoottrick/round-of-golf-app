@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import { GolfUtils } from '../../model/golf';
 import { GolfCourse } from '../../model/GolfCourse';
 import { Golfer } from '../../model/Golfer';
 
@@ -14,7 +13,6 @@ const RoundDetails: FC<Props> = ({ timestamp, golfers, course }) => {
   const golferNames = golfers.map(golfer => golfer.name).join(', ');
 
   const winners = [] as Golfer[];
-  // const winners = GolfUtils.determineWinner(golfers);
   let winnerText = '';
   if (winners.length === 1 && golfers.length > 1) {
     winnerText = winners[0].name;

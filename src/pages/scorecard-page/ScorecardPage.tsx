@@ -1,11 +1,6 @@
-import React, { FC, useEffect, useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import {
-  PageLayout,
-  PageContent,
-  ControlPanel,
-  RectButton,
-} from '../../components';
+import { PageLayout, PageContent, ControlPanel } from '../../components';
 import { useCurrentRound, useGolfers } from '../../data/GolfRoundsContext';
 import { getParticipatingGolfers } from '../../data/rounds';
 import { GolfScorecard } from '../../model/GolfScorecard';
