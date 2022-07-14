@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { RadioButton, RadioPicker } from '../../components/RadioPicker';
+import { Button } from '../../components';
 import { GolfCourse } from '../../model/GolfCourse';
 import PageSection from './PageSection';
 
@@ -16,13 +16,14 @@ const CourseDetails: FC<Props> = ({ courseData, courseUpdated }) => {
   };
 
   const radioButtons = holeOptions.map((count, i) => (
-    <RadioButton
+    <Button
+      className="flex-1 mr-2 last:mr-0"
       key={i}
-      selected={currentCount === count}
+      outline={currentCount !== count}
       onClick={() => holeCountUpdated(count)}
     >
       {count} Holes
-    </RadioButton>
+    </Button>
   ));
 
   return (
@@ -30,7 +31,7 @@ const CourseDetails: FC<Props> = ({ courseData, courseUpdated }) => {
       <header className="mb-8">
         <h1 className="text-3xl mt-4">Course</h1>
       </header>
-      <RadioPicker>{radioButtons}</RadioPicker>
+      <div className="flex flex-row items-center">{radioButtons}</div>
     </PageSection>
   );
 };

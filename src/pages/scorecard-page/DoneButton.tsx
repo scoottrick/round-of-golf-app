@@ -1,11 +1,11 @@
 import React from 'react';
-import { RectButton } from '../../components';
+import { Button } from '../../components';
 
 const DoneButton = ({ roundComplete, onClick }) => {
   return (
-    <RectButton onClick={onClick}>
+    <Button onClick={onClick} outline color={roundComplete && 'red'}>
       {roundComplete ? 'Done' : 'Leave'}
-    </RectButton>
+    </Button>
   );
 };
 
