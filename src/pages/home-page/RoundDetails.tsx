@@ -1,12 +1,20 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { GolfUtils } from '../../model/golf';
+import { GolfCourse } from '../../model/GolfCourse';
+import { Golfer } from '../../model/Golfer';
 
-const RoundDetails = ({ date, golfers, course }) => {
-  const courseName = course.name || `${course.holes.length} Holes`;
-  const dateText = new Date(date).toLocaleDateString();
+interface Props {
+  timestamp: number;
+  golfers: Golfer[];
+  course: GolfCourse;
+}
+const RoundDetails: FC<Props> = ({ timestamp, golfers, course }) => {
+  const courseName = course.name || `${course.holeCount} Holes`;
+  const dateText = new Date(timestamp).toLocaleDateString();
   const golferNames = golfers.map(golfer => golfer.name).join(', ');
 
-  const winners = GolfUtils.determineWinner(golfers);
+  const winners = [] as Golfer[];
+  // const winners = GolfUtils.determineWinner(golfers);
   let winnerText = '';
   if (winners.length === 1 && golfers.length > 1) {
     winnerText = winners[0].name;

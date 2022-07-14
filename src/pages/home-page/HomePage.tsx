@@ -3,16 +3,18 @@ import { useNavigate } from 'react-router-dom';
 import { ControlPanel, PageContent, PageLayout } from '../../components';
 import {
   useDeleteGolfRound,
+  useGolfers,
   useGolfRounds,
 } from '../../data/GolfRoundsContext';
-import { GolfRound } from '../../model/golf';
+import { GolfRound } from '../../model/GolfRound';
 import { AppRoutes } from '../../model/routes';
 import NewRoundButton from './NewRoundButton';
-import RoundList from './RoundHistory';
+import RoundHistory from './RoundHistory';
 
 const HomePage = () => {
   const goTo = useNavigate();
   const rounds = useGolfRounds();
+  const golfers = useGolfers();
   const deleteGolfRound = useDeleteGolfRound();
 
   const startNewRound = () => {
@@ -30,8 +32,9 @@ const HomePage = () => {
   return (
     <PageLayout>
       <PageContent>
-        <RoundList
+        <RoundHistory
           rounds={rounds}
+          golfers={golfers}
           roundSelected={r => openScorecard(r)}
           roundDeleted={r => deleteRound(r)}
         />

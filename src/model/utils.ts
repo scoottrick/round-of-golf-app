@@ -7,7 +7,13 @@ export interface DivComponent extends React.HTMLAttributes<HTMLDivElement> {}
 export interface ButtonComponent
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
 
-export const arrayOfN = (n: number) => [...new Array(n)];
+export const arrayOfN = <T>(n: number, val?: any): T[] => {
+  const result: T[] = [];
+  for (let i = 0; i < n; i++) {
+    result.push(val);
+  }
+  return result;
+};
 
 type NameArg = undefined | string | [boolean, string, string?];
 export const classNames = (args: NameArg[]) => {
