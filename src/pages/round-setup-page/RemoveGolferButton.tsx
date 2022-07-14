@@ -1,12 +1,17 @@
 import React from 'react';
 import { MinusIcon } from '@heroicons/react/outline';
-import { IconButton } from '../../components';
+import { Button } from '../../components';
 
 const RemoveGolferButton = ({ hidden, onClick }) => {
   return (
-    <IconButton data-app-hidden={hidden} className="ml-8" onClick={onClick}>
+    <Button
+      data-app-hidden={hidden}
+      className="ml-8"
+      onClick={onClick}
+      color="red"
+    >
       <MinusIcon className="w-4 h-4" />
-    </IconButton>
+    </Button>
   );
 };
 

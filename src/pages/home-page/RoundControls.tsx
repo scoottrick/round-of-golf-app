@@ -1,13 +1,13 @@
 import React from 'react';
 import { TrashIcon } from '@heroicons/react/outline';
-import { IconButton } from '../../components';
+import { Button } from '../../components';
 
 const RoundControls = ({ onDelete }) => {
   return (
     <div className="text-right">
-      <IconButton onClick={onDelete}>
+      <Button onClick={onDelete} outline color="red">
         <TrashIcon className="w-4 h-4" />
-      </IconButton>
+      </Button>
     </div>
   );
 };

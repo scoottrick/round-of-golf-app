@@ -1,8 +1,8 @@
 import React from 'react';
-import { RectButton } from '../../components';
+import { Button } from '../../components';
 
 const StartRoundButton = ({ onClick }) => {
-  return <RectButton onClick={onClick}>Let's Play</RectButton>;
+  return <Button onClick={onClick}>Let's Play</Button>;
 };
 
 export default StartRoundButton;

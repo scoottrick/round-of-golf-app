@@ -1,12 +1,12 @@
 import React from 'react';
 import { PlusIcon } from '@heroicons/react/outline';
-import { IconButton } from '../../components';
+import { Button } from '../../components';
 
 const AddGolferButton = ({ onClick }) => {
   return (
-    <IconButton onClick={onClick}>
+    <Button onClick={onClick} outline>
       <PlusIcon className="w-4 h-4" />
-    </IconButton>
+    </Button>
   );
 };
 

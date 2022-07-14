@@ -1,11 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import {
-  Button,
-  ControlPanel,
-  PageContent,
-  PageLayout,
-} from '../../components';
+import { ControlPanel, PageContent, PageLayout } from '../../components';
 import {
   useDeleteGolfRound,
   useGolfers,
