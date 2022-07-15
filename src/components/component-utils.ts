@@ -3,7 +3,7 @@ import React from 'react';
 export interface DivComponent extends React.HTMLAttributes<HTMLDivElement> {}
 export interface ButtonComponent
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
-export interface SectionComponent extends React.HTMLAttributes<HTMLElement> {}
+export interface HTMLComponent extends React.HTMLAttributes<HTMLElement> {}
 
 export function tailwindClass(...parts: (string | number)[]) {
   return parts.join('-');

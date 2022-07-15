@@ -4,9 +4,9 @@ import NoHistoryMessage from './NoHistoryMessage';
 import RoundHistoryCard from './RoundHistoryCard';
 import { Golfer } from '../../model/Golfer';
 import { getParticipatingGolfers } from '../../data/rounds';
-import { SectionComponent } from '../../components/component-utils';
+import { HTMLComponent } from '../../components/component-utils';
 
-interface Props extends SectionComponent {
+interface Props extends HTMLComponent {
   rounds: GolfRound[];
   golfers: Golfer[];
 }

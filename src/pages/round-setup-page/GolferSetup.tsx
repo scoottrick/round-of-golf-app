@@ -1,30 +1,25 @@
-import { PlusIcon } from '@heroicons/react/outline';
 import { FC } from 'react';
-import { Button } from '../../components';
+import { DivComponent } from '../../components/component-utils';
 import AddGolferButton from './AddGolferButton';
 import GolferList from './GolferList';
-import PageSection from './PageSection';
 
-interface Props {
+interface Props extends DivComponent {
   golferNames: string[];
-  onNamesUpdated: (names: string[]) => void;
+  onNamesUpdate: (names: string[]) => void;
 }
-const GolferSetup: FC<Props> = ({ golferNames, onNamesUpdated }) => {
+const GolferSetup: FC<Props> = ({ golferNames, onNamesUpdate, className }) => {
   const addName = () => {
-    onNamesUpdated([...golferNames, '']);
+    onNamesUpdate([...golferNames, '']);
   };
 
   return (
-    <PageSection>
-      <header className="border-box relative">
-        <h1 className="text-3xl">Who's Golfing?</h1>
-        <AddGolferButton
-          className="absolute bottom-0 right-0"
-          onClick={addName}
-        />
+    <div className={className}>
+      <header className="border-box flex flex-row justify-between items-start mb-8 relative">
+        <h1 className="text-3xl grow">Who's Golfing?</h1>
+        <AddGolferButton onClick={addName} />
       </header>
-      <GolferList names={golferNames} namesUpdated={onNamesUpdated} />
-    </PageSection>
+      <GolferList names={golferNames} namesUpdated={onNamesUpdate} />
+    </div>
   );
 };
 

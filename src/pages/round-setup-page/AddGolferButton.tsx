@@ -1,15 +1,14 @@
 import { PlusIcon } from '@heroicons/react/outline';
-import { Button } from '../../components';
+import { FC } from 'react';
+import { Button, TextButton } from '../../components';
+import { ButtonComponent } from '../../components/component-utils';
 
-interface Props {
-  className?: string;
-  onClick: () => void;
-}
-const AddGolferButton = ({ onClick, className }) => {
+interface Props extends ButtonComponent {}
+const AddGolferButton: FC<Props> = ({ onClick, className }) => {
   return (
-    <Button onClick={onClick} className={className || ''} outline>
-      <PlusIcon className="w-4 h-4" />
-    </Button>
+    <TextButton onClick={onClick} className={className || ''}>
+      <PlusIcon className="w-6 inline" />
+    </TextButton>
   );
 };
 

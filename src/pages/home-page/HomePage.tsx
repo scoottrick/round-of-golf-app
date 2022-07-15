@@ -9,9 +9,9 @@ const HomePage: FC = () => {
   const golfers = useGolfers();
 
   return (
-    <Page>
+    <Page className="flex flex-col">
       <RoundHistory rounds={rounds} golfers={golfers} />
-      <NewRound />
+      <NewRound className="grow" />
     </Page>
   );
 };

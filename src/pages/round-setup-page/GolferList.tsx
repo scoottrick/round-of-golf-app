@@ -15,7 +15,7 @@ const GolferList: FC<Props> = ({ names, namesUpdated }) => {
     namesUpdated([...names]);
   };
   const nameItems = names.map((name, i) => (
-    <li key={i} className="mb-2 last:mb-0 w-1/2 min-w-72 p-2 max-w-md mx-auto">
+    <li key={i} className="mb-2 last:mb-0 w-1/2 min-w-72 p-2 mx-auto">
       <GolferNameInput
         value={name}
         removeable={names.length > 1}
