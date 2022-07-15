@@ -8,15 +8,8 @@ import { getParticipatingGolfers } from '../../data/rounds';
 interface Props {
   rounds: GolfRound[];
   golfers: Golfer[];
-  roundSelected: (round: GolfRound) => void;
-  roundDeleted: (round: GolfRound) => void;
 }
-const RoundHistory: FC<Props> = ({
-  rounds,
-  golfers,
-  roundSelected,
-  roundDeleted,
-}) => {
+const RoundHistory: FC<Props> = ({ rounds, golfers }) => {
   const roundList = rounds.sort((a, b) => b.timestamp - a.timestamp);
 
   if (!rounds || !rounds.length) {
@@ -24,13 +17,8 @@ const RoundHistory: FC<Props> = ({
   }
 
   const listItems = roundList.map(r => (
-    <li key={r.id} className="mb-2 last:mb-0">
-      <GolfRoundCard
-        round={r}
-        golfers={getParticipatingGolfers(r, golfers)}
-        onOpen={() => roundSelected(r)}
-        onDelete={() => roundDeleted(r)}
-      />
+    <li key={r.id} className="mb-2 last:mb-0 max-w-xl mx-auto">
+      <GolfRoundCard round={r} golfers={getParticipatingGolfers(r, golfers)} />
     </li>
   ));
   return <ul>{listItems}</ul>;

@@ -1,24 +1,25 @@
-import { useEffect, useRef } from 'react';
+import { MutableRefObject, useEffect, useRef } from 'react';
 import { useEventListener } from './useEventListener';
 import { useTimeout } from './useTimeout';
 
-export function useLongPress(element: any, callback: () => void) {
+export function useLongPress(
+  elementRef: MutableRefObject<HTMLElement>,
+  callback: () => void
+) {
   const callbackRef = useRef(callback);
-
-  const { clear, reset } = useTimeout(1000, callback);
-
-  useEffect(() => {
-    clear();
-  }, []);
-
   useEffect(() => {
     callbackRef.current = callback;
   }, [callback]);
 
-  useEventListener(element, 'mousedown', reset);
-  useEventListener(element, 'touchstart', reset);
+  const { clear, reset } = useTimeout(1000, callback);
+  useEffect(() => {
+    clear();
+  }, []);
 
-  useEventListener(element, 'mouseup', clear);
-  useEventListener(element, 'mouseleave', clear);
-  useEventListener(element, 'touchend', clear);
+  useEventListener(elementRef, 'mousedown', reset);
+  useEventListener(elementRef, 'touchstart', reset);
+
+  useEventListener(elementRef, 'mouseup', clear);
+  useEventListener(elementRef, 'mouseleave', clear);
+  useEventListener(elementRef, 'touchend', clear);
 }

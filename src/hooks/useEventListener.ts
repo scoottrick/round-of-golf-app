@@ -1,16 +1,16 @@
-import { useEffect, useRef } from 'react';
+import { MutableRefObject, useEffect, useRef } from 'react';
 
 export function useEventListener(
-  element: HTMLElement,
+  elementRef: MutableRefObject<HTMLElement>,
   eventType: string,
   callback: (event: any) => void
 ) {
   const callbackRef = useRef(callback);
-
   useEffect(() => {
     callbackRef.current = callback;
   }, [callback]);
 
+  const element = elementRef.current;
   useEffect(() => {
     if (!element) return;
     const listener = e => callbackRef.current(e);
@@ -19,5 +19,5 @@ export function useEventListener(
     return () => {
       element.removeEventListener(eventType, listener);
     };
-  }, [element, eventType]);
+  }, [elementRef, eventType]);
 }
