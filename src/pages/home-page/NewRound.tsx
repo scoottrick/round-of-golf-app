@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button } from '../../components';
 import { useAddGolfers, useAddGolfRound } from '../../data/GolfRoundsContext';
-import { createCourse, GolfCourse } from '../../model/GolfCourse';
+import { createCourse } from '../../model/GolfCourse';
 import { createGolfer } from '../../model/Golfer';
 import { createRound } from '../../model/GolfRound';
 import { AppRoutes } from '../../model/routes';
-import CourseSetup from '../round-setup-page/CourseSetup';
+import HoleCountPicker from '../round-setup-page/HoleCountPicker';
 import GolferSetup from '../round-setup-page/GolferSetup';
+import CourseSetup from './CourseSetup';
+import { Button } from '../../components';
 
 const NewRound = () => {
   const [names, setNames] = useState(['Scott', '']);
@@ -29,7 +30,10 @@ const NewRound = () => {
   return (
     <div className="p-8">
       <GolferSetup golferNames={names} onNamesUpdated={setNames} />
-      <CourseSetup courseData={course} onCourseUpdated={setCourse} />
+      <CourseSetup course={course} onCourseUpdate={setCourse} />
+      <div className="text-center p-8">
+        <Button onClick={startNewRound}>Let's Play</Button>
+      </div>
     </div>
   );
 };

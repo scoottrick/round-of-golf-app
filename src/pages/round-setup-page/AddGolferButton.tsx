@@ -1,9 +1,13 @@
 import { PlusIcon } from '@heroicons/react/outline';
 import { Button } from '../../components';
 
-const AddGolferButton = ({ onClick }) => {
+interface Props {
+  className?: string;
+  onClick: () => void;
+}
+const AddGolferButton = ({ onClick, className }) => {
   return (
-    <Button onClick={onClick} outline>
+    <Button onClick={onClick} className={className || ''} outline>
       <PlusIcon className="w-4 h-4" />
     </Button>
   );

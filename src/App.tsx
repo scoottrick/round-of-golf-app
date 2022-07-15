@@ -5,7 +5,6 @@ import { GolfRound } from './model/GolfRound';
 import { AppRoutes } from './model/routes';
 import { getRounds, saveRound } from './data/rounds';
 import HomePage from './pages/home-page/HomePage';
-import RoundSetupPage from './pages/round-setup-page/RoundSetupPage';
 import ScorecardPage from './pages/scorecard-page/ScorecardPage';
 import { getGolfers, saveGolfer } from './data/golfers';
 import { Golfer } from './model/Golfer';
@@ -74,7 +73,6 @@ function App() {
       >
         <Routes>
           <Route path={AppRoutes.home} element={<HomePage />} />
-          <Route path={AppRoutes.roundSetup} element={<RoundSetupPage />} />
           <Route
             path={`${AppRoutes.scorecard}/:roundId`}
             element={<ScorecardPage />}
