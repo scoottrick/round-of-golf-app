@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
-import { classNames, DivComponent } from '../model/utils';
+import { classNames } from '../model/utils';
+import { DivComponent } from './component-utils';
 
 interface PageLayoutProps extends DivComponent {}
 const PageLayout: FC<PageLayoutProps> = ({ children, className, ...props }) => {

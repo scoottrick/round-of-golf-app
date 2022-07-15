@@ -1,6 +1,6 @@
 export const TailwindShame = () => {
   return (
-    <>
+    <div className="hidden">
       <>
         <div className="text-white"></div>
         <div className="text-black"></div>
@@ -36,6 +36,6 @@ export const TailwindShame = () => {
         <div className="border-red-600"></div>
         <div className="border-red-700"></div>
       </>
-    </>
+    </div>
   );
 };

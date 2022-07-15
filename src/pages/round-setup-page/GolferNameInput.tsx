@@ -1,13 +1,36 @@
-import React from 'react';
+import { TrashIcon } from '@heroicons/react/outline';
+import { FC } from 'react';
+import { TextButton } from '../../components';
 
-const GolferNameInput = ({ value, updated }) => {
+interface Props {
+  value: string;
+  onUpdate: (value: string) => void;
+  removeable?: boolean;
+  onRemove: () => void;
+}
+const GolferNameInput: FC<Props> = ({
+  value,
+  onUpdate,
+  removeable,
+  onRemove,
+}) => {
   return (
-    <input
-      className="border-b-2 text-md py-1 flex-1"
-      type="text"
-      value={value}
-      onChange={e => updated(e.target.value)}
-    />
+    <div className="border-box flex flex-row justify-between items-center">
+      <span className="grow shrink min-w-0">
+        <input
+          className="w-full h-full px-2 py-1 border-b-2 border-b-gray-600 bg-transparent focus:border-b-green-600"
+          type="text"
+          value={value}
+          size={20}
+          onChange={e => onUpdate(e.target.value)}
+        />
+      </span>
+      <span data-app-hidden={!removeable} className="pl-2">
+        <TextButton onClick={onRemove} color="red">
+          <TrashIcon className="w-5 inline" />
+        </TextButton>
+      </span>
+    </div>
   );
 };
 

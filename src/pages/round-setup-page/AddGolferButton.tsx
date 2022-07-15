@@ -1,4 +1,3 @@
-import React from 'react';
 import { PlusIcon } from '@heroicons/react/outline';
 import { Button } from '../../components';
 

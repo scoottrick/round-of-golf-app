@@ -1,15 +1,10 @@
-import { v4 as uuid } from 'uuid';
+export interface DivComponent extends React.HTMLAttributes<HTMLDivElement> {}
+export interface ButtonComponent
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
 
-export type EntityId = string;
-export const createId = () => uuid() as EntityId;
-
-export const arrayOfN = <T>(n: number, val?: any): T[] => {
-  const result: T[] = [];
-  for (let i = 0; i < n; i++) {
-    result.push(val);
-  }
-  return result;
-};
+export function tailwindClass(...parts: (string | number)[]) {
+  return parts.join('-');
+}
 
 type NameArg = undefined | string | [boolean, string, string?];
 export const classNames = (args: NameArg[]) => {
