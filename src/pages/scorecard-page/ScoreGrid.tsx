@@ -1,24 +1,26 @@
+import { ArrowLeftIcon, PencilIcon, TrashIcon } from '@heroicons/react/outline';
 import React, { FC } from 'react';
+import { TextButton } from '../../components';
 import { Golfer } from '../../model/Golfer';
 import { GolfRound } from '../../model/GolfRound';
 import { GolfScorecard } from '../../model/GolfScorecard';
 
 const ScorecardCell = ({ children, className }) => (
-  <td
+  <span
     className={`text-center p-2 min-w-20 flex flex-row justify-center items-center ${className}`}
   >
     {children}
-  </td>
+  </span>
 );
 
 const ScorecardRow = ({ shade, children, className }) => {
   const shadeClass = shade ? 'bg-gray-300 focus-within:bg-gray-400' : '';
   return (
-    <tr
+    <div
       className={`max-h-20 flex flex-row justify-between ${shadeClass} ${className}`}
     >
       {children}
-    </tr>
+    </div>
   );
 };
 
@@ -125,12 +127,12 @@ const ScoreGrid: FC<Props> = ({ round, golfers, scoresUpdated }) => {
     );
   }
   return (
-    <table className="min-h-full flex flex-col">
-      <thead>
+    <div className="flex flex-col">
+      <div>
         <ScorecardHeader names={scoreData.map(data => data.name)} />
-      </thead>
-      <tbody>{rows}</tbody>
-    </table>
+      </div>
+      {rows}
+    </div>
   );
 };
 
