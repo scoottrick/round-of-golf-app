@@ -12,7 +12,10 @@ interface Props {
 }
 const GolfRoundCard: FC<Props> = ({ round, golfers, onOpen, onDelete }) => {
   return (
-    <div className="shadow py-4 px-8" onClick={onOpen}>
+    <div
+      className="py-4 px-8 relative rounded-sm cursor-pointer shadow-sm hover:shadow"
+      onClick={onOpen}
+    >
       <RoundDetails
         timestamp={round.timestamp}
         golfers={golfers}

@@ -24,7 +24,7 @@ const RoundHistory: FC<Props> = ({
   }
 
   const listItems = roundList.map(r => (
-    <li key={r.id}>
+    <li key={r.id} className="mb-2 last:mb-0">
       <GolfRoundCard
         round={r}
         golfers={getParticipatingGolfers(r, golfers)}
