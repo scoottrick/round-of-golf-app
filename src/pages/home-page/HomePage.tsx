@@ -1,10 +1,10 @@
 import { FC } from 'react';
-import { DivComponent } from '../../components/component-utils';
 import { useGolfers, useGolfRounds } from '../../data/GolfRoundsContext';
 import NewRound from './NewRound';
 import RoundHistory from './RoundHistory';
+import { Page } from '../../components/Page';
 
-const HomePage = () => {
+const HomePage: FC = () => {
   const rounds = useGolfRounds();
   const golfers = useGolfers();
 
@@ -13,19 +13,6 @@ const HomePage = () => {
       <RoundHistory rounds={rounds} golfers={golfers} />
       <NewRound />
     </Page>
-  );
-};
-
-interface PageProps extends DivComponent {}
-const Page: FC<PageProps> = ({ children, className, ...props }) => {
-  const bgColor = 'bg-gray-200 dark:bg-gray-800';
-  return (
-    <div
-      className={`h-full w-full overflow-auto ${bgColor} ${className || ''}`}
-      {...props}
-    >
-      {children}
-    </div>
   );
 };
 
