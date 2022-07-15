@@ -5,14 +5,14 @@ import PageSection from './PageSection';
 
 interface Props {
   courseData: GolfCourse;
-  courseUpdated: (course: GolfCourse) => void;
+  onCourseUpdated: (course: GolfCourse) => void;
 }
-const CourseDetails: FC<Props> = ({ courseData, courseUpdated }) => {
+const CourseDetails: FC<Props> = ({ courseData, onCourseUpdated }) => {
   const currentCount = courseData.holeCount;
   const holeOptions: number[] = [9, 18];
 
   const holeCountUpdated = (newCount: number) => {
-    courseUpdated({ ...courseData, holeCount: newCount });
+    onCourseUpdated({ ...courseData, holeCount: newCount });
   };
 
   const radioButtons = holeOptions.map((count, i) => (

@@ -18,7 +18,7 @@ const GolferNameInput: FC<Props> = ({
     <div className="border-box pb-1 flex flex-row justify-between items-center border-b-2 border-b-gray-600 bg-transparent focus-within:border-b-green-600">
       <span className="grow shrink min-w-0">
         <input
-          className="w-full h-full px-2 py-1"
+          className="w-full h-full px-2 py-1 bg-transparent"
           type="text"
           value={value}
           size={20}

@@ -1,11 +1,15 @@
-import React from 'react';
+import { FC } from 'react';
 import AddGolferButton from './AddGolferButton';
 import GolferList from './GolferList';
 import PageSection from './PageSection';
 
-const GolferSetup = ({ golferNames, namesUpdated }) => {
+interface Props {
+  golferNames: string[];
+  onNamesUpdated: (names: string[]) => void;
+}
+const GolferSetup: FC<Props> = ({ golferNames, onNamesUpdated }) => {
   const addClicked = () => {
-    namesUpdated([...golferNames, '']);
+    onNamesUpdated([...golferNames, '']);
   };
 
   return (
@@ -14,7 +18,7 @@ const GolferSetup = ({ golferNames, namesUpdated }) => {
         <h1 className="text-3xl mt-4 flex-1">Golfers</h1>
         <AddGolferButton onClick={() => addClicked()} />
       </header>
-      <GolferList names={golferNames} namesUpdated={namesUpdated} />
+      <GolferList names={golferNames} namesUpdated={onNamesUpdated} />
     </PageSection>
   );
 };

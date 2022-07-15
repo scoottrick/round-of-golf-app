@@ -61,7 +61,7 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div className="App relative h-screen w-screen">
       <GolfRoundsProvider
         rounds={allRounds}
         golfers={allGolfers}

@@ -43,8 +43,11 @@ const RoundSetupPage: FC<Props> = () => {
   return (
     <PageLayout>
       <PageContent>
-        <GolferSetup golferNames={golferNames} namesUpdated={setGolferNames} />
-        <CourseSetup courseData={courseData} courseUpdated={setCourseData} />
+        <GolferSetup
+          golferNames={golferNames}
+          onNamesUpdated={setGolferNames}
+        />
+        <CourseSetup courseData={courseData} onCourseUpdated={setCourseData} />
       </PageContent>
       <ControlPanel>
         <Button onClick={goBack} color="red">
