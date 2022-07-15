@@ -1,12 +1,9 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
+import React, { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDeleteGolfRound } from '../../data/GolfRoundsContext';
 import { Golfer } from '../../model/Golfer';
 import { GolfRound } from '../../model/GolfRound';
 import { GolfScorecard } from '../../model/GolfScorecard';
 import { AppRoutes } from '../../model/routes';
-import RoundControls from './RoundControls';
-import RoundDetails from './RoundDetails';
 
 function sumArray(numbers: number[]): number {
   return numbers.reduce((total, i) => total + i, 0);
@@ -76,7 +73,7 @@ interface Props {
   round: GolfRound;
   golfers: Golfer[];
 }
-const GolfRoundCard: FC<Props> = ({ round, golfers }) => {
+const RoundHistoryCard: FC<Props> = ({ round, golfers }) => {
   const navigate = useNavigate();
 
   const openRound = () => {
@@ -106,4 +103,4 @@ const GolfRoundCard: FC<Props> = ({ round, golfers }) => {
   );
 };
 
-export default GolfRoundCard;
+export default RoundHistoryCard;
