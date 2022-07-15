@@ -39,7 +39,7 @@ const ScorecardPage = () => {
 
   return (
     <Page>
-      <div className="bg-gray-400 p-2 flex flex-row justify-between">
+      <div className="bg-gray-400 p-2 flex flex-row justify-between shadow-lg">
         <TextButton onClick={goToHomePage}>
           <ArrowLeftIcon className="h-5 inline" />
         </TextButton>

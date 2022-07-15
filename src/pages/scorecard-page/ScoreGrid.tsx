@@ -1,11 +1,11 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { Golfer } from '../../model/Golfer';
 import { GolfRound } from '../../model/GolfRound';
 import { GolfScorecard } from '../../model/GolfScorecard';
 
 const ScorecardCell = ({ children, className }) => (
   <span
-    className={`text-center p-2 min-w-20 flex flex-row justify-center items-center ${className}`}
+    className={`text-center p-1 min-w-16 flex flex-row justify-center items-center ${className}`}
   >
     {children}
   </span>
@@ -22,8 +22,28 @@ const ScorecardRow = ({ shade, children, className }) => {
   );
 };
 
-const ScoreInput = ({ value, updated }) => {
+interface ScoreInputProps {
+  value: number;
+  onChange: (value: number) => void;
+}
+const ScoreInput: FC<ScoreInputProps> = ({ value, onChange }) => {
+  const [inputValue, setInputValue] = useState(`${value || '--'}`);
   const selectText = el => el.setSelectionRange(0, el.value.length);
+
+  const updateScore = (input: string) => {
+    setInputValue(input);
+    const int = parseInt(input);
+    if (!isNaN(int)) {
+      onChange(int);
+    }
+  };
+
+  const resetInvalidScore = () => {
+    const int = parseInt(inputValue);
+    if (isNaN(int)) {
+      setInputValue(`${value || ''}`);
+    }
+  };
 
   return (
     <input
@@ -31,9 +51,10 @@ const ScoreInput = ({ value, updated }) => {
       type="text"
       inputMode="numeric"
       size={2}
-      value={value || '--'}
-      onChange={e => updated(e.target.value)}
+      value={inputValue || '--'}
+      onChange={e => updateScore(e.target.value)}
       onFocus={e => selectText(e.target)}
+      onBlur={() => resetInvalidScore()}
     />
   );
 };
@@ -57,14 +78,14 @@ const ScoreRow: FC<ScoreRowProps> = ({
       >
         <ScoreInput
           value={data.strokes[holeIndex]}
-          updated={score => scoreUpdated(data.golferId, holeIndex, score)}
+          onChange={score => scoreUpdated(data.golferId, holeIndex, score)}
         />
       </ScorecardCell>
     );
   });
   return (
     <ScorecardRow shade={isOddRow} className="flex-1">
-      <ScorecardCell className="border-gray-700 border-r-2">
+      <ScorecardCell className="text-sm border-gray-700 border-r-2">
         {holeIndex + 1}
       </ScorecardCell>
       {cells}
@@ -79,13 +100,15 @@ const ScorecardHeader = ({ names }) => {
         key={i}
         className="py-4 flex-1 border-gray-700 border-r last:border-r-0"
       >
-        {name}
+        <span className="w-full whitespace-nowrap overflow-hidden overflow-ellipsis">
+          {name}
+        </span>
       </ScorecardCell>
     );
   });
   return (
     <ScorecardRow shade={false} className="border-b-2 border-gray-700">
-      <ScorecardCell className="py-4 border-gray-700 border-r-2">
+      <ScorecardCell className="py-4 text-sm border-gray-700 border-r-2">
         Hole #
       </ScorecardCell>
       {cells}
@@ -126,9 +149,7 @@ const ScoreGrid: FC<Props> = ({ round, golfers, scoresUpdated }) => {
   }
   return (
     <div className="flex flex-col">
-      <div>
-        <ScorecardHeader names={scoreData.map(data => data.name)} />
-      </div>
+      <ScorecardHeader names={scoreData.map(data => data.name)} />
       {rows}
     </div>
   );
