@@ -15,10 +15,10 @@ const GolferNameInput: FC<Props> = ({
   onRemove,
 }) => {
   return (
-    <div className="border-box flex flex-row justify-between items-center">
+    <div className="border-box pb-1 flex flex-row justify-between items-center border-b-2 border-b-gray-600 bg-transparent focus-within:border-b-green-600">
       <span className="grow shrink min-w-0">
         <input
-          className="w-full h-full px-2 py-1 border-b-2 border-b-gray-600 bg-transparent focus:border-b-green-600"
+          className="w-full h-full px-2 py-1"
           type="text"
           value={value}
           size={20}
