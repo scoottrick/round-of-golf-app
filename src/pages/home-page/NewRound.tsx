@@ -27,13 +27,10 @@ const NewRound = () => {
   };
 
   return (
-    <section>
-      <div>
-        <Button onClick={startNewRound}>Start</Button>
-      </div>
+    <div className="p-8">
       <GolferSetup golferNames={names} onNamesUpdated={setNames} />
       <CourseSetup courseData={course} onCourseUpdated={setCourse} />
-    </section>
+    </div>
   );
 };
 

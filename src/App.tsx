@@ -9,6 +9,7 @@ import RoundSetupPage from './pages/round-setup-page/RoundSetupPage';
 import ScorecardPage from './pages/scorecard-page/ScorecardPage';
 import { getGolfers, saveGolfer } from './data/golfers';
 import { Golfer } from './model/Golfer';
+import { useAppTitle } from './hooks/useAppTitle';
 
 function useStoredRounds() {
   const [rounds, setRounds] = useState([] as GolfRound[]);
@@ -39,13 +40,14 @@ function useStoredRounds() {
   }, [golfers]);
   return [rounds, setRounds, golfers, setGolfers] as [
     GolfRound[],
-    (_: GolfRound[]) => void,
+    (rounds: GolfRound[]) => void,
     Golfer[],
-    (_: Golfer[]) => void
+    (golfers: Golfer[]) => void
   ];
 }
 
 function App() {
+  useAppTitle('Round of Golf');
   const [allRounds, setAllRounds, allGolfers, setAllGolfers] =
     useStoredRounds();
   console.log({ allRounds, allGolfers });

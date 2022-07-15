@@ -28,9 +28,9 @@ const CourseDetails: FC<Props> = ({ courseData, onCourseUpdated }) => {
 
   return (
     <PageSection>
-      <header className="mb-8">
+      {/* <header className="mb-8">
         <h1 className="text-3xl mt-4">Course</h1>
-      </header>
+      </header> */}
       <div className="flex flex-row items-center">{radioButtons}</div>
     </PageSection>
   );

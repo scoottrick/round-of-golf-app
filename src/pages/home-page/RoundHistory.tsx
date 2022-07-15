@@ -4,12 +4,14 @@ import NoHistoryMessage from './NoHistoryMessage';
 import RoundHistoryCard from './RoundHistoryCard';
 import { Golfer } from '../../model/Golfer';
 import { getParticipatingGolfers } from '../../data/rounds';
+import { DivComponent } from '../../components/component-utils';
 
-interface Props {
+interface Props extends DivComponent {
   rounds: GolfRound[];
   golfers: Golfer[];
+  collapsed?: boolean;
 }
-const RoundHistory: FC<Props> = ({ rounds, golfers }) => {
+const RoundHistory: FC<Props> = ({ rounds, golfers, className }) => {
   const sortedRounds = rounds.sort((a, b) => b.timestamp - a.timestamp);
 
   if (!rounds || !rounds.length) {
@@ -25,14 +27,14 @@ const RoundHistory: FC<Props> = ({ rounds, golfers }) => {
     </li>
   ));
   return (
-    <>
-      <div className="px-2 pt-4">
+    <section>
+      <header className="px-2 pt-4">
         <h2>Previous Rounds</h2>
-      </div>
+      </header>
       <ul className="p-2 border-box w-full overflow-x-scroll whitespace-nowrap">
         {listItems}
       </ul>
-    </>
+    </section>
   );
 };
 export default RoundHistory;
