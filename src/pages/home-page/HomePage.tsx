@@ -20,7 +20,10 @@ interface PageProps extends DivComponent {}
 const Page: FC<PageProps> = ({ children, className, ...props }) => {
   const bgColor = 'bg-gray-200 dark:bg-gray-800';
   return (
-    <div className={`h-full w-full ${bgColor} ${className || ''}`} {...props}>
+    <div
+      className={`h-full w-full overflow-auto ${bgColor} ${className || ''}`}
+      {...props}
+    >
       {children}
     </div>
   );

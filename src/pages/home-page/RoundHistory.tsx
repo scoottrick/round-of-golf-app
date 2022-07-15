@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { GolfRound } from '../../model/GolfRound';
 import NoHistoryMessage from './NoHistoryMessage';
 import RoundHistoryCard from './RoundHistoryCard';
@@ -17,13 +17,22 @@ const RoundHistory: FC<Props> = ({ rounds, golfers }) => {
   }
 
   const listItems = sortedRounds.map(r => (
-    <li key={r.id} className="mb-2 last:mb-0 max-w-xl mx-auto">
+    <li key={r.id} className="m-2 inline-block">
       <RoundHistoryCard
         round={r}
         golfers={getParticipatingGolfers(r, golfers)}
       />
     </li>
   ));
-  return <ul>{listItems}</ul>;
+  return (
+    <>
+      <div className="px-2 pt-4">
+        <h2>Previous Rounds</h2>
+      </div>
+      <ul className="p-2 border-box w-full overflow-x-scroll whitespace-nowrap">
+        {listItems}
+      </ul>
+    </>
+  );
 };
 export default RoundHistory;

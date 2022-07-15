@@ -61,7 +61,7 @@ function App() {
   };
 
   return (
-    <div className="App relative h-screen w-screen">
+    <div className="App relative h-screen w-screen overflow-hidden">
       <GolfRoundsProvider
         rounds={allRounds}
         golfers={allGolfers}

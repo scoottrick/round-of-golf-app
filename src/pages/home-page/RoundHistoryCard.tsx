@@ -88,13 +88,13 @@ const RoundHistoryCard: FC<Props> = ({ round, golfers }) => {
 
   return (
     <div
-      className="py-8 px-8 relative rounded-sm select-none cursor-pointer shadow-sm hover:shadow bg-white"
+      className="p-4 w-44 relative rounded-sm select-none cursor-pointer shadow-sm hover:shadow bg-white"
       onClick={openRound}
     >
-      <p className="absolute leading-none top-2 right-2 text-sm">{dateText}</p>
-      <h2 className="text-2xl font-bold">{courseName}</h2>
-      <p className="overflow-hidden text-ellipsis whitespace-nowrap max-w-full">
-        Golfers: <em>{golferNames}</em>
+      <p className="absolute leading-none top-2 right-2 text-xs">{dateText}</p>
+      <h2 className="text-xl font-bold">{courseName}</h2>
+      <p className="text-sm overflow-hidden text-ellipsis whitespace-nowrap max-w-full">
+        <em>{golferNames}</em>
       </p>
       <p className="text-xs">
         <em>{status}</em>
