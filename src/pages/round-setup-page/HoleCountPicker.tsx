@@ -1,7 +1,5 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { Button } from '../../components';
-import { GolfCourse } from '../../model/GolfCourse';
-import PageSection from './PageSection';
 
 interface Props {
   value: number;

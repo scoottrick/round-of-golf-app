@@ -1,6 +1,4 @@
-import { ArrowLeftIcon, PencilIcon, TrashIcon } from '@heroicons/react/outline';
-import React, { FC } from 'react';
-import { TextButton } from '../../components';
+import { FC } from 'react';
 import { Golfer } from '../../model/Golfer';
 import { GolfRound } from '../../model/GolfRound';
 import { GolfScorecard } from '../../model/GolfScorecard';

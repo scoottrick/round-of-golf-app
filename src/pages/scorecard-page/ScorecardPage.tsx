@@ -1,12 +1,6 @@
 import { ArrowLeftIcon, PencilIcon, TrashIcon } from '@heroicons/react/outline';
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import {
-  PageLayout,
-  PageContent,
-  ControlPanel,
-  TextButton,
-} from '../../components';
+import { TextButton } from '../../components';
 import { Page } from '../../components/Page';
 import {
   useCurrentRound,
@@ -16,7 +10,6 @@ import {
 import { getParticipatingGolfers } from '../../data/rounds';
 import { GolfScorecard } from '../../model/GolfScorecard';
 import { AppRoutes } from '../../model/routes';
-import DoneButton from './DoneButton';
 import RoundNotFound from './RoundNotFound';
 import ScoreGrid from './ScoreGrid';
 

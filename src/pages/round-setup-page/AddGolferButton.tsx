@@ -1,6 +1,6 @@
 import { PlusIcon } from '@heroicons/react/outline';
 import { FC } from 'react';
-import { Button, TextButton } from '../../components';
+import { TextButton } from '../../components';
 import { ButtonComponent } from '../../components/component-utils';
 
 interface Props extends ButtonComponent {}
