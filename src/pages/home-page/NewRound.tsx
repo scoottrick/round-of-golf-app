@@ -12,7 +12,7 @@ import { HTMLComponent } from '../../components/component-utils';
 
 interface Props extends HTMLComponent {}
 const NewRound: FC<Props> = ({ className }) => {
-  const [names, setNames] = useState(['Scott', '']);
+  const [names, setNames] = useState(['']);
   const [course, setCourse] = useState(createCourse('Course', 9));
 
   const addNewRound = useAddGolfRound();

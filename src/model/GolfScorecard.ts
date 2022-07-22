@@ -16,3 +16,12 @@ export function createBlankScorecard(
   }
   return scorecard;
 }
+
+export function isFullScorecard(scorecard: GolfScorecard): boolean {
+  for (let golferScores of Object.values(scorecard)) {
+    if (!golferScores.every(s => s > 0)) {
+      return false;
+    }
+  }
+  return true;
+}

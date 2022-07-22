@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Golfer } from '../../model/Golfer';
 import { GolfRound } from '../../model/GolfRound';
-import { GolfScorecard } from '../../model/GolfScorecard';
+import { GolfScorecard, isFullScorecard } from '../../model/GolfScorecard';
 import { AppRoutes } from '../../model/routes';
 
 function sumArray(numbers: number[]): number {
@@ -21,17 +21,8 @@ function calculateTotalScores(scorecard: GolfScorecard): {
   }, {});
 }
 
-function isScorecardFull(scorecard: GolfScorecard): boolean {
-  for (let golferScores of Object.values(scorecard)) {
-    if (golferScores.every(s => s > 0)) {
-      return false;
-    }
-  }
-  return true;
-}
-
 function findWinners(scorecard: GolfScorecard): string[] {
-  if (!isScorecardFull(scorecard)) {
+  if (!isFullScorecard(scorecard)) {
     return [];
   }
   const totals = calculateTotalScores(scorecard);
@@ -59,12 +50,14 @@ function findWinners(scorecard: GolfScorecard): string[] {
 
 function getMatchStatus(round: GolfRound, golfers: Golfer[]): string {
   const winnerIds = findWinners(round.scorecard);
-  const winners = winnerIds.map(id => golfers.find(g => g.id === id));
+  const winners = winnerIds
+    .map(id => golfers.find(g => g.id === id))
+    .filter(golfer => !!golfer) as Golfer[];
   if (winners.length === 0) {
     return 'Ongoing';
   }
-  if (golfers.length) {
-    return winnerIds.map(id => golfers[id].name).join(' ');
+  if (winners.length) {
+    return winners.map(winner => winner.name).join(' ');
   }
   return 'Complete';
 }

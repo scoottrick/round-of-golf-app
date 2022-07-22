@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 import { Golfer } from '../../model/Golfer';
 import { GolfRound } from '../../model/GolfRound';
-import { GolfScorecard } from '../../model/GolfScorecard';
+import { GolfScorecard, isFullScorecard } from '../../model/GolfScorecard';
 
 const ScorecardCell = ({ children, className }) => (
   <span
@@ -74,7 +74,7 @@ const ScoreRow: FC<ScoreRowProps> = ({
     return (
       <ScorecardCell
         key={data.golferId}
-        className="flex-1 border-gray-700 border-r last:border-r-0"
+        className="grow border-gray-700 border-r last:border-r-0"
       >
         <ScoreInput
           value={data.strokes[holeIndex]}
@@ -84,7 +84,7 @@ const ScoreRow: FC<ScoreRowProps> = ({
     );
   });
   return (
-    <ScorecardRow shade={isOddRow} className="flex-1">
+    <ScorecardRow shade={isOddRow} className="grow">
       <ScorecardCell className="text-sm border-gray-700 border-r-2">
         {holeIndex + 1}
       </ScorecardCell>
@@ -116,6 +116,39 @@ const ScorecardHeader = ({ names }) => {
   );
 };
 
+interface ResultsRowProps {
+  golfers: Golfer[];
+  round: GolfRound;
+}
+const ResultsRow: FC<ResultsRowProps> = ({ golfers, round }) => {
+  const { scorecard } = round;
+  const totals = golfers.map(golfer => {
+    const strokesPerHole = scorecard[golfer.id];
+    if (!strokesPerHole) {
+      return 0;
+    }
+    return strokesPerHole.reduce((total, current) => total + current, 0);
+  });
+
+  const cells = totals.map((score, i) => (
+    <ScorecardCell
+      key={i}
+      className="grow py-4 border-r border-r-gray-700 last:border-r-0"
+    >
+      {score}
+    </ScorecardCell>
+  ));
+
+  return (
+    <ScorecardRow shade={false} className="border-y-2 border-y-gray-700">
+      <ScorecardCell className="py-4 border-r-2 border-r-gray-700">
+        Total
+      </ScorecardCell>
+      {cells}
+    </ScorecardRow>
+  );
+};
+
 interface Props {
   round: GolfRound;
   golfers: Golfer[];
@@ -123,6 +156,7 @@ interface Props {
 }
 const ScoreGrid: FC<Props> = ({ round, golfers, scoresUpdated }) => {
   const { scorecard, course } = round;
+  const roundIsComplete = isFullScorecard(scorecard);
   const scoreData = golfers.map(golfer => {
     return {
       golferId: golfer.id,
@@ -147,10 +181,12 @@ const ScoreGrid: FC<Props> = ({ round, golfers, scoresUpdated }) => {
       />
     );
   }
+
   return (
     <div className="flex flex-col">
       <ScorecardHeader names={scoreData.map(data => data.name)} />
       {rows}
+      {roundIsComplete ? <ResultsRow golfers={golfers} round={round} /> : <></>}
     </div>
   );
 };
