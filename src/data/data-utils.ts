@@ -1,29 +1,21 @@
-import { v4 as uuid } from 'uuid';
-
-export type EntityId = string;
-export const createId = () => uuid() as EntityId;
-
 const storageName = 'app-rog';
 
 function storagePath(...args: string[]): string {
   return [storageName, ...args].join(':');
 }
 
-function getItem(key: string): Promise<any> {
+function getItem(key: string) {
   const dataString = localStorage.getItem(key);
-  const data = JSON.parse(dataString || 'null');
-  return Promise.resolve(data);
+  return JSON.parse(dataString || 'null');
 }
 
-function setItem<T>(key: string, value: T): Promise<void> {
+function setItem<T>(key: string, value: T) {
   const dataString = JSON.stringify(value);
   localStorage.setItem(key, dataString);
-  return Promise.resolve();
 }
 
-function removeItem(key: string): Promise<void> {
+function removeItem(key: string) {
   localStorage.removeItem(key);
-  return Promise.resolve();
 }
 
 function getAppKeys(): string[] {

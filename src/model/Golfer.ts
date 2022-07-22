@@ -1,7 +1,9 @@
 import { v4 as uuid } from 'uuid';
 
+export type GolferId = string;
+
 export interface Golfer {
-  id: string;
+  id: GolferId;
   name: string;
 }
 

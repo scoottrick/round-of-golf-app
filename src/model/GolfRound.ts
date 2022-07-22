@@ -4,8 +4,10 @@ import { Golfer } from './Golfer';
 import { GolfCourse, createCourse } from './GolfCourse';
 import { createBlankScorecard, GolfScorecard } from './GolfScorecard';
 
+export type GolfRoundId = string;
+
 export interface GolfRound {
-  id: string;
+  id: GolfRoundId;
   timestamp: number;
   completed: boolean;
   golferIds: string[];

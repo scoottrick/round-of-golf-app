@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { GolfRoundsProvider } from './data/GolfRoundsContext';
 import { GolfRound } from './model/GolfRound';
@@ -49,37 +49,32 @@ function App() {
   useAppTitle('Round of Golf');
   const [allRounds, setAllRounds, allGolfers, setAllGolfers] =
     useStoredRounds();
-  console.log({ allRounds, allGolfers });
 
   const golfRoundsUpdated = (rounds: GolfRound[]) => {
-    console.log('-- rounds updated', rounds);
     setAllRounds(rounds);
   };
 
   const golfersUpdated = (golfers: Golfer[]) => {
-    console.log('--- golfers updated');
     setAllGolfers(golfers);
   };
 
   return (
-    <div className="App relative h-screen w-screen overflow-hidden">
-      <GolfRoundsProvider
-        rounds={allRounds}
-        golfers={allGolfers}
-        roundsUpdated={rounds => {
-          golfRoundsUpdated(rounds);
-        }}
-        golfersUpdated={golfersUpdated}
-      >
-        <Routes>
-          <Route path={AppRoutes.home} element={<HomePage />} />
-          <Route
-            path={`${AppRoutes.scorecard}/:roundId`}
-            element={<ScorecardPage />}
-          />
-        </Routes>
-      </GolfRoundsProvider>
-    </div>
+    <GolfRoundsProvider
+      rounds={allRounds}
+      golfers={allGolfers}
+      roundsUpdated={rounds => {
+        golfRoundsUpdated(rounds);
+      }}
+      golfersUpdated={golfersUpdated}
+    >
+      <Routes>
+        <Route path={AppRoutes.home} element={<HomePage />} />
+        <Route
+          path={`${AppRoutes.scorecard}/:roundId`}
+          element={<ScorecardPage />}
+        />
+      </Routes>
+    </GolfRoundsProvider>
   );
 }
 export default App;

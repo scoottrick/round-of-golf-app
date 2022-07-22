@@ -1,32 +1,36 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { GolfRound } from '../model/GolfRound';
+import { GolfRound, GolfRoundId } from '../model/GolfRound';
 import { deleteRound } from '../data/rounds';
 import { Golfer } from '../model/Golfer';
+import { useSavedGolfers } from '../hooks/useSavedGolfers';
+import { useSavedRounds } from '../hooks/useSavedRounds';
 
-const GolfRoundsContext = React.createContext([] as GolfRound[]);
-const SetGolfRoundsContext = React.createContext((_: GolfRound[]) => {});
-const AddGolfRoundContext = React.createContext((_: GolfRound) => {});
-const DeleteGolfRoundContext = React.createContext((_: GolfRound) => {});
+const RoundsContext = React.createContext([] as GolfRound[]);
+const SetRoundsContext = React.createContext((rounds: GolfRound[]) => {});
+const UpdateRoundContext = React.createContext((round: GolfRound) => {});
+const AddRoundContext = React.createContext((round: GolfRound) => {});
+const DeleteRoundContext = React.createContext((round: GolfRound) => {});
+
 const GolfersContext = React.createContext([] as Golfer[]);
-const SetGolfersContext = React.createContext((_: Golfer[]) => {});
-const AddGolfersContext = React.createContext((_: Golfer[]) => {});
-const DeleteGolfersContext = React.createContext((_: Golfer[]) => {});
+const SetGolfersContext = React.createContext((golfers: Golfer[]) => {});
+const AddGolfersContext = React.createContext((golfers: Golfer[]) => {});
+const DeleteGolfersContext = React.createContext((golfers: Golfer[]) => {});
 
 export function useGolfRounds() {
-  return React.useContext(GolfRoundsContext);
+  return React.useContext(RoundsContext);
 }
 
 export function useSetGolfRounds() {
-  return React.useContext(SetGolfRoundsContext);
+  return React.useContext(SetRoundsContext);
 }
 
 export function useAddGolfRound() {
-  return React.useContext(AddGolfRoundContext);
+  return React.useContext(AddRoundContext);
 }
 
 export function useDeleteGolfRound() {
-  return React.useContext(DeleteGolfRoundContext);
+  return React.useContext(DeleteRoundContext);
 }
 
 export function useGolfers() {
@@ -60,6 +64,48 @@ export function useCurrentRound() {
   return [current, setCurrent] as [GolfRound, (round: GolfRound) => void];
 }
 
+export const GolfersProvider = ({ children }) => {
+  const { golfers, setGolfers, addGolfers, removeGolfers } = useSavedGolfers();
+
+  return (
+    <GolfersContext.Provider value={golfers}>
+      <SetGolfersContext.Provider value={golfers => setGolfers(golfers)}>
+        <AddGolfersContext.Provider value={golfers => addGolfers(golfers)}>
+          <DeleteGolfersContext.Provider
+            value={golfers => removeGolfers(golfers.map(g => g.id))}
+          >
+            {children}
+          </DeleteGolfersContext.Provider>
+        </AddGolfersContext.Provider>
+      </SetGolfersContext.Provider>
+    </GolfersContext.Provider>
+  );
+};
+
+export const RoundsProvider = ({ children }) => {
+  const { rounds, addRound, updateRound, removeRound } = useSavedRounds();
+
+  return (
+    <RoundsContext.Provider value={rounds}>
+      <UpdateRoundContext.Provider value={round => updateRound(round)}>
+        <AddRoundContext.Provider value={round => addRound(round)}>
+          <DeleteRoundContext.Provider value={round => removeRound(round.id)}>
+            {children}
+          </DeleteRoundContext.Provider>
+        </AddRoundContext.Provider>
+      </UpdateRoundContext.Provider>
+    </RoundsContext.Provider>
+  );
+};
+
+export const AppProvider = ({ children }) => {
+  return (
+    <GolfersProvider>
+      <RoundsProvider>{children}</RoundsProvider>
+    </GolfersProvider>
+  );
+};
+
 interface Props {
   rounds: GolfRound[];
   roundsUpdated: (rounds: GolfRound[]) => void;
@@ -84,7 +130,7 @@ export const GolfRoundsProvider: React.FC<Props> = ({
 
   const deleteGolfRound = (deletedRound: GolfRound) => {
     roundsUpdated(rounds.filter(r => r.id !== deletedRound.id));
-    deleteRound(deletedRound);
+    deleteRound(deletedRound.id);
   };
 
   const setGolfers = (newValue: Golfer[]) => {
@@ -102,12 +148,10 @@ export const GolfRoundsProvider: React.FC<Props> = ({
   };
 
   return (
-    <GolfRoundsContext.Provider value={rounds}>
-      <SetGolfRoundsContext.Provider value={rounds => setGolfRounds(rounds)}>
-        <AddGolfRoundContext.Provider value={round => addGolfRound(round)}>
-          <DeleteGolfRoundContext.Provider
-            value={round => deleteGolfRound(round)}
-          >
+    <RoundsContext.Provider value={rounds}>
+      <SetRoundsContext.Provider value={rounds => setGolfRounds(rounds)}>
+        <AddRoundContext.Provider value={round => addGolfRound(round)}>
+          <DeleteRoundContext.Provider value={round => deleteGolfRound(round)}>
             <GolfersContext.Provider value={golfers}>
               <SetGolfersContext.Provider value={setGolfers}>
                 <AddGolfersContext.Provider value={addGolfers}>
@@ -117,9 +161,9 @@ export const GolfRoundsProvider: React.FC<Props> = ({
                 </AddGolfersContext.Provider>
               </SetGolfersContext.Provider>
             </GolfersContext.Provider>
-          </DeleteGolfRoundContext.Provider>
-        </AddGolfRoundContext.Provider>
-      </SetGolfRoundsContext.Provider>
-    </GolfRoundsContext.Provider>
+          </DeleteRoundContext.Provider>
+        </AddRoundContext.Provider>
+      </SetRoundsContext.Provider>
+    </RoundsContext.Provider>
   );
 };
