@@ -76,7 +76,7 @@ const RoundHistoryCard: FC<Props> = ({ round, golfers }) => {
   const { course, timestamp } = round;
   const courseName = course.name || `${course.holeCount} Holes`;
   const dateText = new Date(timestamp).toLocaleDateString();
-  const golferNames = golfers.map(golfer => golfer.name).join(', ');
+  const golferNames = golfers.map(golfer => golfer?.name).join(', ');
   const status = getMatchStatus(round, golfers);
 
   return (
